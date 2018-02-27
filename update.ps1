@@ -1,4 +1,4 @@
 git add .
-git commit -m 'auto updating'
+git commit -m 'Auto update.'
 git push -u origin master
 PAUSE
