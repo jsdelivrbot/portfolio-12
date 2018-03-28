@@ -1,5 +1,5 @@
 .primary-overlay {
-	background: rgba(63, 57, 77, 0.4);
+	/* background: rgba(63, 57, 77, 0.4); */
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -8,8 +8,17 @@
 	overflow: hidden;
 }
 
+/* .custom-nav {
+	-webkit-transition: background-color 0.5s ease-in-out;
+	-moz-transition: background-color 0.5s ease-in-out;
+	-ms-transition: background-color 0.5s ease-in-out;
+	-o-transition: background-color 0.5s ease-in-out;
+	transition: background-color 0.5s ease-in-out;
+} */
+
 .main-header {
 	background: url(../img/background.jpg);
+	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
@@ -43,6 +52,10 @@
 
 .section-contact {
 	position: relative;
+}
+
+.pricing-card {
+	height: 200px;
 }
 
 .section-contact .card-panel {
