@@ -1,4 +1,18 @@
-update.ps1
-update.repo
-reset.repo
+node_modules
+config/config.json
 
+.DS_Store
+client/node_modules/
+client/dist/
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/test/unit/coverage/
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
