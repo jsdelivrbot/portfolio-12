@@ -18,9 +18,13 @@ let app = express();
 app.use(helmet());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
-//const port = 8080;
+if (configJSON.underMaintenance) {
+	app.use(express.static('public/maintenance'));
+} else {
+	//site is not under maintenance. normal operation
+	app.use(express.static('public'));
+}
 
 app.listen(port, () => {
 	console.log(`Listening on http://localhost:${port}\n`);
