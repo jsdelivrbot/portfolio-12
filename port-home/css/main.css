@@ -54,6 +54,10 @@
 	position: relative;
 }
 
+.adappt-logo {
+	width: 250px;
+}
+
 .pricing-card {
 	height: 200px;
 }
@@ -61,6 +65,10 @@
 .section-contact .card-panel {
 	position: relative;
 	z-index: 1;
+}
+
+.selfie {
+	height: 360px !important;
 }
 
 #googlemap {
