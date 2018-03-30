@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Get content from file
-var config = fs.readFileSync('config.json');
+var config = fs.readFileSync('config/config.json');
 // Define to JSON type
 var configJSON = JSON.parse(config);
 
