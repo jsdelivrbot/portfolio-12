@@ -27,11 +27,12 @@ const webRoot = path.join(__dirname, 'public');
 app.use(favicon(path.join(webRoot + '/img/favicon.png')));
 
 if (configJSON.underMaintenance) {
-	app.use(express.static('public/maintenance'));
+	console.log('MAINTENANCE MODE ENABLED,..');
+	app.use('/', express.static('public/maintenance'));
 	app.use('/temp', express.static('public'));
 } else {
 	//site is NOT under maintenance. normal operation
-	app.use(express.static('public'));
+	app.use('/', express.static('public'));
 }
 
 app.listen(port, () => {
