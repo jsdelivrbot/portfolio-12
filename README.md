@@ -9,6 +9,6 @@ Hello there. Welcome to my portfolio backup. If you can see this, you're either 
 3.  run `(sudo) npm install`
 
 4.  Start application
-    a. **`npm start`** = `browser-refresh server.js`
-    b. `npm run deploy` = `node server.js`
-    c. `npm run nodemon` = `nodemon server.js`
+    ⋅⋅⋅a. **`npm start`** = `browser-refresh server.js`
+    ⋅⋅⋅b. `npm run deploy` = `node server.js`
+    ⋅⋅⋅c. `npm run nodemon` = `nodemon server.js`
