@@ -18,7 +18,7 @@ let app = express();
 
 // middleware
 app.use(helmet());
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(compression());
 

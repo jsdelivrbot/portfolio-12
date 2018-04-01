@@ -8,14 +8,6 @@
 	overflow: hidden;
 }
 
-/* .custom-nav {
-	-webkit-transition: background-color 0.5s ease-in-out;
-	-moz-transition: background-color 0.5s ease-in-out;
-	-ms-transition: background-color 0.5s ease-in-out;
-	-o-transition: background-color 0.5s ease-in-out;
-	transition: background-color 0.5s ease-in-out;
-} */
-
 .main-header {
 	background: url(../img/background.jpg);
 	background-attachment: fixed;
@@ -52,6 +44,13 @@
 
 .section-contact {
 	position: relative;
+}
+
+.section-portfolio {
+	background: url(../img/port-pic.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
 }
 
 .adappt-logo {
