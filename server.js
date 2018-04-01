@@ -1,10 +1,13 @@
 const express = require('express');
+const http = require('http');
+const watch = require('watch');
 const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const path = require('path');
+const process = require('process');
 const fs = require('fs');
 
 // Get content from file
@@ -37,4 +40,7 @@ if (configJSON.underMaintenance) {
 
 app.listen(port, () => {
 	console.log(`Listening on http://localhost:${port}\n`);
+	if (process.send) {
+		process.send('online'); //setup browser refresh
+	}
 });

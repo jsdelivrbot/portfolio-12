@@ -47,7 +47,7 @@
 }
 
 .section-portfolio {
-	background: url(../img/port-pic.jpg);
+	/* background: url(../img/port-pic.jpg); */
 	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
@@ -64,6 +64,34 @@
 .section-contact .card-panel {
 	position: relative;
 	z-index: 1;
+}
+
+.divider1 {
+	background: url(../img/port-pics/port1.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	/* height: 100vh; */
+
+	min-height: 50vh;
+}
+.divider2 {
+	background: url(../img/port-pics/port2.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	/* height: 100vh; */
+
+	min-height: 50vh;
+}
+.divider3 {
+	background: url(../img/port-pics/port3.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	/* height: 100vh; */
+
+	min-height: 50vh;
 }
 
 .selfie {
