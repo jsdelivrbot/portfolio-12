@@ -40,6 +40,7 @@ if (configJSON.underMaintenance) {
 
 app.listen(port, () => {
 	console.log(`Listening on http://localhost:${port}\n`);
+	console.log('Browser Refresh JS found at: ', process.env.BROWSER_REFRESH_URL);
 	if (process.send) {
 		process.send('online'); //setup browser refresh
 	}
