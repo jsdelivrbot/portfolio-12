@@ -1,6 +1,5 @@
 node_modules
 config/config.json
-js/broswer.js
 
 .DS_Store
 
