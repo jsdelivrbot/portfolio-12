@@ -38,9 +38,12 @@ if (configJSON.underMaintenance) {
 	app.use('/', express.static('public'));
 }
 
+app.use('/browser-refresh-url', function(req, res) {
+	res.send(process.env.BROWSER_REFRESH_URL);
+});
+
 app.listen(port, () => {
 	console.log(`Listening on http://localhost:${port}\n`);
-	console.log('Browser Refresh JS found at: ', process.env.BROWSER_REFRESH_URL);
 	if (process.send) {
 		process.send('online'); //setup browser refresh
 	}

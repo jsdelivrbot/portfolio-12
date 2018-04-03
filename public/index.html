@@ -16,8 +16,8 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjckrSN4k3GpkHD57EQ1yBo8WpCw3N4Ds"></script>
-  <!-- <script type="text/javascript" src="{process.env.BROWSER_REFRESH_URL}"></script> -->
-  <script type="text/javascript" src="js/browser.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
 
   <title>
@@ -330,6 +330,15 @@
 
   <script>
     $(document).ready(function () {
+
+      axios.get('/browser-refresh-url')
+        .then(function (response) {
+          let broswerRefreshURL = document.createElement('script');
+          broswerRefreshURL.setAttribute('src', response.data);
+          document.head.appendChild(broswerRefreshURL);
+        }).catch(function (error) {
+          console.log(error);
+        });
       // Init Sidenav
       $('.button-collapse').sideNav();
 
