@@ -38,7 +38,14 @@ if (configJSON.underMaintenance) {
 	app.use('/', express.static('public'));
 }
 
-app.use('/browser-refresh-url', function(req, res) {
+//redirect on 404s
+app.use('*', function (req, res) {
+	res.redirect("/404");
+});
+app.use('/404', express.static('public/404'));
+
+//handle dynamic browser refresh crap
+app.use('/browser-refresh-url', function (req, res) {
 	res.send(process.env.BROWSER_REFRESH_URL);
 });
 
