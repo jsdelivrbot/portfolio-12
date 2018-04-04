@@ -30,7 +30,7 @@ const webRoot = path.join(__dirname, 'public');
 app.use(favicon(path.join(webRoot + '/img/favicon.png')));
 
 if (configJSON.underMaintenance) {
-	console.log('MAINTENANCE MODE ENABLED,..');
+	console.log('\nMAINTENANCE MODE ENABLED...');
 	app.use('/', express.static('public/maintenance'));
 	app.use('/temp', express.static('public'));
 } else {
@@ -39,6 +39,7 @@ if (configJSON.underMaintenance) {
 }
 
 if (configJSON.deployMode) {
+	console.log('\nDeploy MODE ENABLED...');
 	//redirect on 404s
 	app.use('*', function(req, res) {
 		res.redirect('/404');
