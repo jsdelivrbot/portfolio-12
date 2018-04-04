@@ -25,6 +25,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(compression());
 
+let router = express.Router();
+
 const webRoot = path.join(__dirname, 'public');
 
 app.use(favicon(path.join(webRoot + '/img/favicon.png')));
@@ -41,16 +43,17 @@ if (configJSON.underMaintenance) {
 if (configJSON.deployMode) {
 	console.log('\nDeploy MODE ENABLED...');
 	//redirect on 404s
-	app.use('*', function(req, res) {
+	app.use('/404', express.static('public/404'));
+	app.all('*', function(req, res) {
 		res.redirect('/404');
 	});
-	app.use('/404', express.static('public/404'));
+} else {
+	console.log('\nDeploy MODE DISABLED...');
+	//handle dynamic browser refresh crap
+	app.use('/browser-refresh-url', function(req, res) {
+		res.send(process.env.BROWSER_REFRESH_URL);
+	});
 }
-
-//handle dynamic browser refresh crap
-app.use('/browser-refresh-url', function(req, res) {
-	res.send(process.env.BROWSER_REFRESH_URL);
-});
 
 app.listen(port, () => {
 	console.log(`Listening on http://localhost:${port}\n`);
