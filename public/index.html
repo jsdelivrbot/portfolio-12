@@ -240,6 +240,7 @@
         </div>
         <div class="col s12 m4">
           <div class="card white black-text z-depth-4">
+
             <div class="card-image">
               <img src="img/port-pics/port6.jpg">
               <span class="card-title">Website 6
@@ -305,23 +306,26 @@
         <div class="col s12 m6 offset-m6">
           <div class="card-panel z-depth-5">
             <h4>Get In Touch</h4>
-            <div class="input-field">
-              <input type="text" id="name" placeholder="Name">
-              <label for="name">Name</label>
-            </div>
-            <div class="input-field">
-              <input type="email" id="email" placeholder="Email">
-              <label for="email">Email</label>
-            </div>
-            <div class="input-field">
-              <input type="text" id="phone" placeholder="Phone Number">
-              <label for="phone">Phone</label>
-            </div>
-            <div class="input-field">
-              <textarea class="materialize-textarea" id="message" placeholder="Message"></textarea>
-              <label for="message">Message</label>
-            </div>
-            <input type="submit" value="Submit" class="btn blue-grey">
+            <form>
+              <div class="input-field">
+                <input type="text" id="name" placeholder="Name">
+                <label for="name">Name</label>
+              </div>
+              <div class="input-field">
+                <input type="email" id="email" placeholder="Email">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="phone" placeholder="Phone Number">
+                <label for="phone">Phone</label>
+              </div>
+              <div class="input-field">
+                <textarea class="materialize-textarea" id="message" placeholder="Message"></textarea>
+                <label for="message">Message</label>
+              </div>
+              <input type="submit" value="Submit" class="btn blue-grey" style="width: 100%;" onclick="postContactForm()">
+            </form>
+
           </div>
         </div>
       </div>
@@ -329,8 +333,23 @@
   </section>
 
   <script>
-    $(document).ready(function () {
+    async function postContactForm() {
+      return await axios.post('/send-email', {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          message: document.getElementById('message').value
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          //console.log(error);
+        });
+    }
 
+
+    $(document).ready(function () {
       axios.get('/browser-refresh-url')
         .then(function (response) {
           let broswerRefreshURL = document.createElement('script');

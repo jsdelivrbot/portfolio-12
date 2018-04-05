@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const process = require('process');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
+const exphbs = require('express-handlebars');
 
 // Get content from file
 var config = fs.readFileSync('config/config.json');
@@ -21,7 +23,9 @@ let app = express();
 
 // middleware
 app.use(helmet());
-//app.use(logger('dev'));
+
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(compression());
 
@@ -41,19 +45,72 @@ if (configJSON.underMaintenance) {
 }
 
 if (configJSON.deployMode) {
-	console.log('\nDeploy MODE ENABLED...');
+	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
 	app.use('/404', express.static('public/404'));
 	app.all('*', function(req, res) {
 		res.redirect('/404');
 	});
 } else {
-	console.log('\nDeploy MODE DISABLED...');
+	console.log('\nDeploy mode DISABLED...');
 	//handle dynamic browser refresh crap
 	app.use('/browser-refresh-url', function(req, res) {
 		res.send(process.env.BROWSER_REFRESH_URL);
 	});
 }
+
+//email stuff
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+app.post('/send-email', (req, res) => {
+	console.log(req.body);
+	const output = `
+    <p>You have a new contact request</p>
+    <h3>Contact Details</h3>
+    <ul>  
+      <li>Name: ${req.body.name}</li>
+      <li>Email: ${req.body.email}</li>
+      <li>Phone: ${req.body.phone}</li>
+    </ul>
+    <h3>Message</h3>
+    <p>${req.body.message}</p>
+  `;
+
+	// create reusable transporter object using the default SMTP transport
+	let transporter = nodemailer.createTransport({
+		host: 'smtp.gmail.com',
+		port: 587,
+		secure: false, // true for 465, false for other ports
+		auth: {
+			user: 'adappt.email.server@gmail.com', // generated ethereal user
+			pass: 'ThisIsHowWeDoIt69' // generated ethereal password
+		},
+		tls: {
+			rejectUnauthorized: false
+		}
+	});
+
+	// setup email data with unicode symbols
+	let mailOptions = {
+		from: '"Portfolio Contact" <contact@adappt.tech>', // sender address
+		to: 'contact@adappt.tech', // list of receivers
+		subject: 'Portfolio Contact Fillout', // Subject line
+		text: 'Hello world?', // plain text body
+		html: output // html body
+	};
+
+	// send mail with defined transport object
+	transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			return console.log(error);
+		}
+		console.log('Message sent');
+
+		res.send('Message Sent');
+
+		//res.render(webRoot, { msg: 'Email has been sent' });
+	});
+});
 
 app.listen(port, () => {
 	console.log(`Listening on http://localhost:${port}\n`);
