@@ -23,14 +23,13 @@
 </head>
 
 <body>
-    <h1 style="text-align:center;padding-top:120px;">Film Star</h1>
+    <h1 class="clickable" style="text-align:center;padding-top:120px;">Film Star</h1>
 </body>
 
 
 
 <script>
     $(document).ready(function () {
-        //Materialize.AutoInit();
         axios.get('/browser-refresh-url')
             .then(function (response) {
                 let broswerRefreshURL = document.createElement('script');
@@ -41,6 +40,9 @@
                 console.log(error);
             });
     });
+    // M.toast({
+    //     html: 'Test!'
+    // });
 </script>
 
 </html>
