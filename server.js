@@ -25,7 +25,9 @@ let app = express();
 app.use(helmet());
 
 // Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 app.use(bodyParser.json());
 app.use(compression());
 
@@ -48,13 +50,13 @@ if (configJSON.deployMode) {
 	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
 	app.use('/404', express.static('public/404'));
-	app.all('*', function(req, res) {
+	app.all('*', function (req, res) {
 		res.redirect('/404');
 	});
 } else {
 	console.log('\nDeploy mode DISABLED...');
 	//handle dynamic browser refresh crap
-	app.use('/browser-refresh-url', function(req, res) {
+	app.use('/browser-refresh-url', function (req, res) {
 		res.send(process.env.BROWSER_REFRESH_URL);
 	});
 }
@@ -65,7 +67,7 @@ app.set('view engine', 'handlebars');
 app.post('/send-email', (req, res) => {
 	console.log(req.body);
 	const output = `
-    <p>You have a new contact request</p>
+    <p>Someone is requesting to get in touch with you through the portfolio get in touch form.</p>
     <h3>Contact Details</h3>
     <ul>  
       <li>Name: ${req.body.name}</li>
@@ -92,9 +94,9 @@ app.post('/send-email', (req, res) => {
 
 	// setup email data with unicode symbols
 	let mailOptions = {
-		from: '"Portfolio Contact" <contact@adappt.tech>', // sender address
+		from: '"Portfolio Contact Form Response" <contact@adappt.tech>', // sender address
 		to: 'contact@adappt.tech', // list of receivers
-		subject: 'Portfolio Contact Fillout', // Subject line
+		subject: 'Portfolio Contact Form Response', // Subject line
 		text: 'Hello world?', // plain text body
 		html: output // html body
 	};
