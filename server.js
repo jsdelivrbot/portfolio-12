@@ -13,9 +13,9 @@ const nodemailer = require('nodemailer');
 const exphbs = require('express-handlebars');
 
 // Get content from file
-var config = fs.readFileSync('config/config.json');
+const config = fs.readFileSync('config/config.json');
 // Define to JSON type
-var configJSON = JSON.parse(config);
+const configJSON = JSON.parse(config);
 
 let port = configJSON.port;
 

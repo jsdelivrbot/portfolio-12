@@ -1,3 +1,29 @@
 .clickable {
 	cursor: pointer;
 }
+
+.splash {
+	background: url(./img/back5-1.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	min-height: 600px;
+	color: #fff;
+	position: absolute;
+	right: 0;
+	left: 0;
+}
+
+.header {
+	text-align: center;
+	padding-top: 120px;
+}
+
+.home-buttons {
+	background-color: black;
+}
+
+.home-buttons-row {
+	/* padding-top: 100px; */
+}

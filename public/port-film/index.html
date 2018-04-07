@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link type="text/css" rel="stylesheet" href="styles.css" />
+    <link type="text/css" rel="stylesheet" href="semantic.min.css" />
     <link rel="icon" href="../img/favicon.png" type="image/x-icon" />
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -18,12 +19,23 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"></script>
+
+
 
     <title>Film Star</title>
 </head>
 
 <body>
-    <h1 class="clickable" style="text-align:center;padding-top:120px;">Film Star</h1>
+    <div class="container-fluid splash">
+        <div class="row">
+            <h1 class="clickable header">Steven Shpielberg</h1>
+        </div>
+        <div class="row center home-buttons-row">
+            <button class="ui inverted button home-buttons ">My Work</button>
+            <button class="ui inverted button home-buttons ">Contact Me</button>
+        </div>
+    </div>
 </body>
 
 
@@ -39,6 +51,9 @@
             }).catch(function (error) {
                 console.log(error);
             });
+
+
+        $('.materialboxed').materialbox();
     });
     // M.toast({
     //     html: 'Test!'
