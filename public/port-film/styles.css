@@ -10,9 +10,27 @@
 	height: 100vh;
 	min-height: 600px;
 	color: #fff;
-	position: absolute;
+	position: relative;
 	right: 0;
 	left: 0;
+}
+.bio {
+	background: url(./img/portrait2.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	min-height: 600px;
+	color: white;
+	position: relative;
+}
+
+.bio-text {
+	/* padding: 0px 20px !important; */
+}
+
+.bio-right {
+	text-align: right;
 }
 
 .header {
@@ -25,5 +43,12 @@
 }
 
 .home-buttons-row {
-	/* padding-top: 100px; */
+	padding-top: 20px;
+}
+
+.scroll-icon {
+	position: absolute;
+	bottom: 5%;
+	left: 47%;
+	opacity: 0.5;
 }
