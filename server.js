@@ -1,10 +1,10 @@
 const express = require('express');
-const http = require('http');
-const watch = require('watch');
-const logger = require('morgan');
+// const http = require('http');
+// const watch = require('watch');
+// const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const path = require('path');
 const process = require('process');
@@ -32,12 +32,8 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(compression());
-
 let router = express.Router();
-
 const webRoot = path.join(__dirname, 'public');
-
-app.use(favicon(path.join(webRoot + '/img/favicon.png')));
 
 if (configJSON.underMaintenance) {
 	console.log('\nMAINTENANCE MODE ENABLED...');
@@ -47,7 +43,6 @@ if (configJSON.underMaintenance) {
 	//site is NOT under maintenance. normal operation
 	app.use('/', express.static('public'));
 }
-
 //normal routes
 app.use('/port-film', express.static('public/port-film'));
 
@@ -55,13 +50,13 @@ if (configJSON.deployMode) {
 	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
 	app.use('/404', express.static('public/404'));
-	app.all('*', function(req, res) {
+	app.all('*', function (req, res) {
 		res.redirect('/404');
 	});
 } else {
 	console.log('\nDeploy mode DISABLED...');
 	//handle dynamic browser refresh crap
-	app.use('/browser-refresh-url', function(req, res) {
+	app.use('/browser-refresh-url', function (req, res) {
 		res.send(process.env.BROWSER_REFRESH_URL);
 	});
 }
