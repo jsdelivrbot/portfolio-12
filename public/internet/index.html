@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/main.css" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <title>
+        Adappt
+    </title>
+</head>
+<style>
+    .center {
+        text-align: center;
+        padding-top: 100px;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <h3 class="center">{{message}}</h3>
+        <h1 class="center">{{allowance}}</h1>
+
+    </div>
+
+</body>
+
+<script>
+    let date = new Date();
+    let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    let todaysDay = new Date().getDate();
+    lastDay = lastDay.getDate();
+    let allowance = (todaysDay / lastDay) * 1024;
+    allowance = Math.round(allowance * 100) / 100
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            message: `Today's date is: ${monthNames[date.getMonth()]} ${todaysDay}`,
+            allowance: `Allowance is: ${allowance} GB`
+        },
+        computed: {},
+        created() {}
+    })
+</script>
+
+</html>

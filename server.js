@@ -45,18 +45,19 @@ if (configJSON.underMaintenance) {
 }
 //normal routes
 app.use('/port-film', express.static('public/port-film'));
+app.use('/internet', express.static('public/internet'));
 
 if (configJSON.deployMode) {
 	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
 	app.use('/404', express.static('public/404'));
-	app.all('*', function (req, res) {
+	app.all('*', function(req, res) {
 		res.redirect('/404');
 	});
 } else {
 	console.log('\nDeploy mode DISABLED...');
 	//handle dynamic browser refresh crap
-	app.use('/browser-refresh-url', function (req, res) {
+	app.use('/browser-refresh-url', function(req, res) {
 		res.send(process.env.BROWSER_REFRESH_URL);
 	});
 }
