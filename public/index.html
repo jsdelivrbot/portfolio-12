@@ -348,6 +348,10 @@
 
     }
 
+
+
+
+
     $(document).ready(function () {
       //Materialize.AutoInit();
       axios.get('/browser-refresh-url')
@@ -363,7 +367,12 @@
       $('.button-collapse').sideNav();
 
       // Init Scrollspy
-      $('.scrollspy').scrollSpy();
+      let scrollOptions = {
+        scrollOffset: 50
+      };
+      $('.scrollspy').scrollSpy(scrollOptions);
+
+
 
       // ScrollFire
       const options = [{
