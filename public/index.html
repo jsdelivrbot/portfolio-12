@@ -26,8 +26,8 @@
 <body id="home" class="scrollspy">
   <header class="main-header">
     <div class="primary-overlay">
-      <div class="black navbar-fixed custom-nav">
-        <nav class="black custom-nav">
+      <div class="navbar-fixed">
+        <nav class="teal darken-4">
           <div class="container">
             <div class="nav-wrapper">
               <a href="#home" class="brand-logo">
@@ -36,7 +36,7 @@
               <a href="#" data-activates="mobile-nav" class="button-collapse">
                 <i class="material-icons">menu</i>
               </a>
-              <ul class="right hide-on-med-and-down">
+              <ul id="main-navbar" class="right hide-on-med-and-down">
                 <li>
                   <a href="#home">Home</a>
                 </li>
@@ -348,9 +348,6 @@
 
     }
 
-
-
-
     $(document).ready(function () {
       //Materialize.AutoInit();
       axios.get('/browser-refresh-url')
@@ -381,8 +378,8 @@
           offset: 900,
           callback: function () {
             // console.log('transparent')
-            $('nav').removeClass('transparent');
-            $('nav').addClass('black');
+            // $('nav').removeClass('transparent');
+            // $('nav').addClass('black');
           }
         }
       ];
