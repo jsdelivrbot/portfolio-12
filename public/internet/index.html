@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../img/favicon.png" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <title>
         Adappt
     </title>
@@ -30,7 +32,11 @@
     <div id="app">
 
         <h3 class="center">{{message}}</h3>
-        <h1 class="center">{{allowance}}</h1>
+        <h2 class="center"> You should be below:
+            <strong>{{allowance}}</strong>
+        </h2>
+        <h3 class="center">Daily rations are:
+            <strong>{{dailyRations}} GB</strong> for the month of {{currentMonth}}.</h3>
 
     </div>
 
@@ -47,15 +53,29 @@
     lastDay = lastDay.getDate();
     let allowance = (todaysDay / lastDay) * 1024;
     allowance = Math.round(allowance * 100) / 100
+    let dailyRations = (1 / lastDay) * 1024;
+    dailyRations = Math.round(dailyRations * 100) / 100
 
     let app = new Vue({
         el: '#app',
         data: {
             message: `Today's date is: ${monthNames[date.getMonth()]} ${todaysDay}`,
-            allowance: `Allowance is: ${allowance} GB`
+            allowance: `${allowance} GB`,
+            dailyRations: dailyRations,
+            currentMonth: `${monthNames[date.getMonth()]}`
         },
         computed: {},
-        created() {}
+        created() {
+            axios.get('/browser-refresh-url')
+                .then(function (response) {
+                    let broswerRefreshURL = document.createElement('script');
+                    broswerRefreshURL.setAttribute('type', 'text/javascript');
+                    broswerRefreshURL.setAttribute('src', response.data);
+                    document.head.appendChild(broswerRefreshURL);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+        }
     })
 </script>
 
