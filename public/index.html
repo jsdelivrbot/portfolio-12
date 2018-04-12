@@ -362,14 +362,16 @@
 
       //else, user entered all information, send an email.
       axios.post('/send-email', {
-          name: document.getElementById('name').value,
-          email: document.getElementById('email').value,
-          phone: document.getElementById('phone').value,
-          message: document.getElementById('message').value
+          name: name,
+          email: email,
+          phone: phone,
+          message: message
         })
         .then(function (response) {
           // console.log(response);
-          Materialize.toast('Message sent successfully!', 5000);
+          Materialize.toast(
+            `Message sent successfully! Thanks for reaching out, I'll get back to you at the email address you provided soon.`,
+            8000);
         })
         .catch(function (error) {
           console.log(error);

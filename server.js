@@ -87,7 +87,7 @@ app.post('/send-email', (req, res) => {
 		secure: false, // true for 465, false for other ports
 		auth: {
 			user: 'adappt.email.server@gmail.com', // generated ethereal user
-			pass: 'ThisIsHowWeDoIt69' // generated ethereal password
+			pass: 'serverFORadapptDOTtech' // generated ethereal password
 		},
 		tls: {
 			rejectUnauthorized: false
