@@ -11,15 +11,12 @@
 		"express-handlebars": "^3.0.0",
 		"fs": "0.0.1-security",
 		"helmet": "^3.12.0",
-		"http": "0.0.0",
 		"morgan": "^1.9.0",
 		"nodemailer": "^4.6.4",
 		"nodemon": "^1.17.2",
 		"path": "^0.12.7",
 		"process": "^0.11.10",
-		"reload": "^2.2.2",
-		"serve-favicon": "^2.5.0",
-		"watch": "^1.0.2"
+		"reload": "^2.2.2"
 	},
 	"devDependencies": {},
 	"scripts": {

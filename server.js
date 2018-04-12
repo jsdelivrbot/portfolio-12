@@ -1,10 +1,7 @@
 const express = require('express');
-// const http = require('http');
-// const watch = require('watch');
 // const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
-// const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const path = require('path');
 const process = require('process');
@@ -45,7 +42,7 @@ if (configJSON.underMaintenance) {
 	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
 }
 //normal routes
-app.use('/port-film', express.static('public/misc-pages/port-film'));
+app.use('/film', express.static('public/portfolio/film'));
 app.use('/internet', express.static('public/misc-pages/internet'));
 
 if (configJSON.deployMode) {
@@ -108,11 +105,7 @@ app.post('/send-email', (req, res) => {
 		if (error) {
 			return console.log(error);
 		}
-		console.log('Message sent');
-
-		res.send('Message Sent');
-
-		//res.render(webRoot, { msg: 'Email has been sent' });
+		// res.send('Message Sent');
 	});
 });
 
