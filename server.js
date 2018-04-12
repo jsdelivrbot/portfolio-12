@@ -37,20 +37,21 @@ const webRoot = path.join(__dirname, 'public');
 
 if (configJSON.underMaintenance) {
 	console.log('\nMAINTENANCE MODE ENABLED...');
-	app.use('/', express.static('public/maintenance'));
+	app.use('/', express.static('public/misc-pages/maintenance'));
 	app.use('/temp', express.static('public'));
 } else {
 	//site is NOT under maintenance. normal operation
 	app.use('/', express.static('public'));
+	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
 }
 //normal routes
-app.use('/port-film', express.static('public/port-film'));
-app.use('/internet', express.static('public/internet'));
+app.use('/port-film', express.static('public/misc-pages/port-film'));
+app.use('/internet', express.static('public/misc-pages/internet'));
 
 if (configJSON.deployMode) {
 	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
-	app.use('/404', express.static('public/404'));
+	app.use('/404', express.static('public/misc-pages/404'));
 	app.all('*', function(req, res) {
 		res.redirect('/404');
 	});
