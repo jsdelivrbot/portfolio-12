@@ -32,6 +32,17 @@ app.use(compression());
 let router = express.Router();
 const webRoot = path.join(__dirname, 'public');
 
+//root routes
+if (configJSON.underMaintenance) {
+	console.log('\nMAINTENANCE MODE ENABLED...');
+	app.use('/', express.static('public/misc-pages/maintenance'));
+	app.use('/temp', express.static('public'));
+} else {
+	//site is NOT under maintenance. normal operation
+	app.use('/', express.static('public'));
+	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
+}
+
 //PORT routes
 app.use('/film', express.static('public/portfolio/film'));
 
@@ -51,15 +62,6 @@ if (configJSON.deployMode) {
 	app.use('/browser-refresh-url', function(req, res) {
 		res.send(process.env.BROWSER_REFRESH_URL);
 	});
-}
-if (configJSON.underMaintenance) {
-	console.log('\nMAINTENANCE MODE ENABLED...');
-	app.use('/', express.static('public/misc-pages/maintenance'));
-	app.use('/temp', express.static('public'));
-} else {
-	//site is NOT under maintenance. normal operation
-	app.use('/', express.static('public'));
-	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
 }
 
 //email stuff
