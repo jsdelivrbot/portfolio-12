@@ -1,5 +1,5 @@
-const express = require('express');
 // const logger = require('morgan');
+const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
 const bodyParser = require('body-parser');
@@ -32,17 +32,10 @@ app.use(compression());
 let router = express.Router();
 const webRoot = path.join(__dirname, 'public');
 
-if (configJSON.underMaintenance) {
-	console.log('\nMAINTENANCE MODE ENABLED...');
-	app.use('/', express.static('public/misc-pages/maintenance'));
-	app.use('/temp', express.static('public'));
-} else {
-	//site is NOT under maintenance. normal operation
-	app.use('/', express.static('public'));
-	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
-}
-//normal routes
+//PORT routes
 app.use('/film', express.static('public/portfolio/film'));
+
+//MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
 
 if (configJSON.deployMode) {
@@ -59,10 +52,20 @@ if (configJSON.deployMode) {
 		res.send(process.env.BROWSER_REFRESH_URL);
 	});
 }
+if (configJSON.underMaintenance) {
+	console.log('\nMAINTENANCE MODE ENABLED...');
+	app.use('/', express.static('public/misc-pages/maintenance'));
+	app.use('/temp', express.static('public'));
+} else {
+	//site is NOT under maintenance. normal operation
+	app.use('/', express.static('public'));
+	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
+}
 
 //email stuff
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
+
 app.post('/send-email', (req, res) => {
 	console.log(req.body);
 	const output = `
@@ -105,7 +108,8 @@ app.post('/send-email', (req, res) => {
 		if (error) {
 			return console.log(error);
 		}
-		// res.send('Message Sent');
+		console.log('Message Sent');
+		res.send('Message Sent');
 	});
 });
 
