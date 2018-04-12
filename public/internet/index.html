@@ -24,14 +24,14 @@
 <style>
     .center {
         text-align: center;
-        padding-top: 100px;
+        padding-top: 70px;
     }
 </style>
 
 <body>
     <div id="app">
 
-        <h3 class="center">{{message}}</h3>
+        <h3 class="center">{{todaysDateString}}</h3>
         <h2 class="center"> You should be below:
             <strong>{{allowance}}</strong>
         </h2>
@@ -59,7 +59,7 @@
     let app = new Vue({
         el: '#app',
         data: {
-            message: `Today's date is: ${monthNames[date.getMonth()]} ${todaysDay}`,
+            todaysDateString: `Today's date is: ${monthNames[date.getMonth()]} ${todaysDay}`,
             allowance: `${allowance} GB`,
             dailyRations: dailyRations,
             currentMonth: `${monthNames[date.getMonth()]}`
