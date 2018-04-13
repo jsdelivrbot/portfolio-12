@@ -260,8 +260,8 @@
   </section>
 
   <!-- Section: Pricing -->
-  <section id="pricing" class="section grey lighten-3 center scrollspy">
-    <div class="container">
+  <section id="pricing" class="section section-pricing grey lighten-3 center scrollspy">
+    <div class="container pricing-stuff">
       <h2>Pricing</h2>
       <div class="row">
         <div class="col s12 m6">
@@ -343,20 +343,23 @@
       let phone = document.getElementById('phone').value;
       let message = document.getElementById('message').value;
 
+      let errorTimeout = 2800;
+      let successTimeout = 8000;
+
       if (!name) {
-        Materialize.toast('Please enter your name before submitting.', 5000);
+        Materialize.toast('Please enter your name before submitting.', errorTimeout);
         return;
       }
       if (!email || !validateEmail(email)) {
-        Materialize.toast('Please enter a valid email address before submitting.', 5000);
+        Materialize.toast('Please enter a valid email address before submitting.', errorTimeout);
         return;
       }
       if (!phone) {
-        Materialize.toast('Please enter your phone number before submitting.', 5000);
+        Materialize.toast('Please enter your phone number before submitting.', errorTimeout);
         return;
       }
       if (!message) {
-        Materialize.toast('Please enter a message before submitting.', 5000);
+        Materialize.toast('Please enter a message before submitting.', errorTimeout);
         return;
       }
 
@@ -371,7 +374,7 @@
           // console.log(response);
           Materialize.toast(
             `Message sent successfully! Thanks for reaching out, I'll get back to you at the email address you provided soon.`,
-            8000);
+            successTimeout);
         })
         .catch(function (error) {
           console.log(error);

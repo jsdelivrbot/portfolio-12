@@ -42,6 +42,14 @@
 	margin-bottom: 0 !important;
 }
 
+.section-pricing {
+	height: 80vh;
+}
+
+.pricing-stuff {
+	padding-top: 10vh;
+}
+
 .section-contact {
 	position: relative;
 }
