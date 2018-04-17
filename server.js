@@ -46,7 +46,7 @@ if (configJSON.underMaintenance) {
 
 //google analytics
 app.get('/js/ga.js', function(req, res, next) {
-	var options = {
+	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
 		headers: {
@@ -55,7 +55,7 @@ app.get('/js/ga.js', function(req, res, next) {
 		}
 	};
 
-	var fileName = '/js/ga.js';
+	let fileName = '/js/ga.js';
 	res.sendFile(fileName, options, function(err) {
 		if (err) {
 			next(err);
@@ -66,7 +66,7 @@ app.get('/js/ga.js', function(req, res, next) {
 });
 
 app.get('/resume', function(req, res, next) {
-	var options = {
+	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
 		headers: {
@@ -75,7 +75,7 @@ app.get('/resume', function(req, res, next) {
 		}
 	};
 
-	var fileName = '/misc-pages/resume.pdf';
+	let fileName = '/misc-pages/resume.pdf';
 	res.sendFile(fileName, options, function(err) {
 		if (err) {
 			next(err);
