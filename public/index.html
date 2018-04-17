@@ -18,6 +18,21 @@
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjckrSN4k3GpkHD57EQ1yBo8WpCw3N4Ds"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117752149-1"></script>
+  <script>
+    if (document.location.hostname != "localhost") {
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-117752149-1');
+    }
+  </script>
+
+
   <title>
     Adappt
   </title>
@@ -415,11 +430,7 @@
         {
           selector: '.navbar-fixed',
           offset: 900,
-          callback: function () {
-            // console.log('transparent')
-            // $('nav').removeClass('transparent');
-            // $('nav').addClass('black');
-          }
+          callback: function () {}
         }
       ];
 
