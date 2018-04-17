@@ -65,6 +65,26 @@ app.get('/js/ga.js', function(req, res, next) {
 	});
 });
 
+app.get('/resume', function(req, res, next) {
+	var options = {
+		root: __dirname + '/public/',
+		dotfiles: 'deny',
+		headers: {
+			'x-timestamp': Date.now(),
+			'x-sent': true
+		}
+	};
+
+	var fileName = '/misc-pages/resume.pdf';
+	res.sendFile(fileName, options, function(err) {
+		if (err) {
+			next(err);
+		} else {
+			console.log('Sent:', fileName);
+		}
+	});
+});
+
 //PORT routes
 app.use('/film', express.static('public/portfolio/film'));
 
