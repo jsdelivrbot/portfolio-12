@@ -1,4 +1,3 @@
-// const logger = require('morgan');
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
