@@ -7,6 +7,7 @@ const process = require('process');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const exphbs = require('express-handlebars');
+const logger = require('morgan');
 
 // Get content from file
 const config = fs.readFileSync('config/config.json');
@@ -19,6 +20,7 @@ let app = express();
 
 // middleware
 app.use(helmet());
+// app.use(logger('dev'));
 
 // Body Parser Middleware
 app.use(
@@ -43,7 +45,7 @@ if (configJSON.underMaintenance) {
 }
 
 //google analytics
-app.get('/ja/ga.js', function(req, res, next) {
+app.get('/js/ga.js', function(req, res, next) {
 	var options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -53,7 +55,7 @@ app.get('/ja/ga.js', function(req, res, next) {
 		}
 	};
 
-	var fileName = __dirname + '/public/' + 'js/ga.js';
+	var fileName = '/js/ga.js';
 	res.sendFile(fileName, options, function(err) {
 		if (err) {
 			next(err);
@@ -73,7 +75,7 @@ if (configJSON.deployMode) {
 	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
 	app.use('/404', express.static('public/misc-pages/404'));
-	app.get('*', function(req, res) {
+	app.all('*', function(req, res) {
 		res.redirect('/404');
 	});
 } else {
