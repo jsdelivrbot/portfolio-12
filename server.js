@@ -73,7 +73,7 @@ if (configJSON.deployMode) {
 	console.log('\nDeploy mode ENABLED...');
 	//redirect on 404s
 	app.use('/404', express.static('public/misc-pages/404'));
-	app.all('*', function(req, res) {
+	app.get('*', function(req, res) {
 		res.redirect('/404');
 	});
 } else {
