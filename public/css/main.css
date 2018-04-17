@@ -61,6 +61,16 @@
 	background-position: center;
 }
 
+.about-section-item {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+	align-items: center;
+}
+
 .adappt-logo {
 	width: 250px;
 }
