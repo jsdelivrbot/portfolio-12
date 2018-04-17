@@ -6,6 +6,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
   <link type="text/css" rel="stylesheet" href="css/main.css" />
 
   <!--Let browser know website is optimized for mobile-->
@@ -336,6 +338,15 @@
                 <textarea class="materialize-textarea" id="message"></textarea>
                 <label for="message">Message</label>
               </div>
+              <div style="padding-bottom: 12px;" class="col s12">
+                <p>
+                  <label>
+                    <input id="subscription" type="checkbox" />
+                    <span style="text-align: left; font-size: 12px;">Sign up to be notified when there are discounts or promotions going on!</span>
+                  </label>
+                </p>
+              </div>
+
               <a class="waves-effect waves-light btn blue-grey" onclick="postContactForm()">Submit</a>
             </form>
 
@@ -357,6 +368,7 @@
       let email = document.getElementById('email').value;
       let phone = document.getElementById('phone').value;
       let message = document.getElementById('message').value;
+      let subscription = document.getElementById('subscription').checked;
 
       let errorTimeout = 2800;
       let successTimeout = 8000;
@@ -383,7 +395,8 @@
           name: name,
           email: email,
           phone: phone,
-          message: message
+          message: message,
+          subscription: subscription
         })
         .then(function (response) {
           // console.log(response);

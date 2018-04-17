@@ -92,14 +92,17 @@ app.set('view engine', 'handlebars');
 
 app.post('/send-email', (req, res) => {
 	console.log(req.body);
-	const output = `
+	let output = `
     <p>Someone is requesting to get in touch with you through the portfolio get in touch form.</p>
     <h3>Contact Details</h3>
     <ul>  
       <li>Name: ${req.body.name}</li>
       <li>Email: ${req.body.email}</li>
-      <li>Phone: ${req.body.phone}</li>
-    </ul>
+	  <li>Phone: ${req.body.phone}</li>`;
+	if (req.body.subscription) {
+		output += `<li>This person also wants to join the email list!!</li>`;
+	}
+	output += `</ul>
     <h3>Message</h3>
     <p>${req.body.message}</p>
   `;
