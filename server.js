@@ -42,6 +42,27 @@ if (configJSON.underMaintenance) {
 	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
 }
 
+//google analytics
+app.get('/ja/ga.js', function(req, res, next) {
+	var options = {
+		root: __dirname + '/public/',
+		dotfiles: 'deny',
+		headers: {
+			'x-timestamp': Date.now(),
+			'x-sent': true
+		}
+	};
+
+	var fileName = __dirname + '/public/' + 'js/ga.js';
+	res.sendFile(fileName, options, function(err) {
+		if (err) {
+			next(err);
+		} else {
+			console.log('Sent:', fileName);
+		}
+	});
+});
+
 //PORT routes
 app.use('/film', express.static('public/portfolio/film'));
 
