@@ -416,10 +416,13 @@
       //Materialize.AutoInit();
       axios.get('/browser-refresh-url')
         .then(function (response) {
-          let broswerRefreshURL = document.createElement('script');
-          broswerRefreshURL.setAttribute('type', 'text/javascript');
-          broswerRefreshURL.setAttribute('src', response.data);
-          document.head.appendChild(broswerRefreshURL);
+          // console.log('reponse: ', response.data.toString().search('404'));
+          if (response.data.toString().search('404') == -1) {
+            let broswerRefreshURL = document.createElement('script');
+            broswerRefreshURL.setAttribute('type', 'text/javascript');
+            broswerRefreshURL.setAttribute('src', response.data);
+            document.head.appendChild(broswerRefreshURL);
+          }
         }).catch(function (error) {
           console.log(error);
         });

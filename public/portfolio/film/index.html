@@ -97,10 +97,12 @@
     $(document).ready(function () {
         axios.get('/browser-refresh-url')
             .then(function (response) {
-                let broswerRefreshURL = document.createElement('script');
-                broswerRefreshURL.setAttribute('type', 'text/javascript');
-                broswerRefreshURL.setAttribute('src', response.data);
-                document.head.appendChild(broswerRefreshURL);
+                if (response.data.toString().search('404') == -1) {
+                    let broswerRefreshURL = document.createElement('script');
+                    broswerRefreshURL.setAttribute('type', 'text/javascript');
+                    broswerRefreshURL.setAttribute('src', response.data);
+                    document.head.appendChild(broswerRefreshURL);
+                }
             }).catch(function (error) {
                 console.log(error);
             });
