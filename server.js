@@ -161,24 +161,28 @@ app.post('/send-email', (req, res) => {
 	});
 });
 
-var key = fs.readFileSync('ssl/private.key');
-var cert = fs.readFileSync('ssl/certificate.crt');
-var ca = fs.readFileSync('ssl/ca_bundle.crt');
+if (configJSON.deployMode) {
+	let key = fs.readFileSync('ssl/private.key');
+	let cert = fs.readFileSync('ssl/certificate.crt');
+	let ca = fs.readFileSync('ssl/ca_bundle.crt');
 
-var options = {
-	key: key,
-	cert: cert,
-	ca: ca
-};
+	let options = {
+		key: key,
+		cert: cert,
+		ca: ca
+	};
 
-var https = require('https');
-https.createServer(options, app).listen(443, function() {
-	console.log('Listening on https://localhost');
-});
-
-// app.listen(port, () => {
-// 	console.log(`Listening on http://localhost:${port}\n`);
-// 	if (process.send) {
-// 		process.send('online'); //setup browser refresh
-// 	}
-// });
+	let https = require('https');
+	let http = require('http');
+	https.createServer(options, app).listen(443, function() {
+		console.log('Listening on https://localhost');
+	});
+	http.listen(80);
+} else {
+	app.listen(port, () => {
+		console.log(`Listening on http://localhost:${port}\n`);
+		if (process.send) {
+			process.send('online'); //setup browser refresh
+		}
+	});
+}
