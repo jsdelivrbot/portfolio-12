@@ -1,0 +1,31 @@
+.slider-div {
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	min-height: 600px;
+	color: #fff;
+	position: relative;
+}
+.sli1 {
+	background-image: url('./kitty.jpg');
+}
+.sli2 {
+	/* background: url(kitty.jpg); */
+}
+.sli3 {
+	/* background: url(kitty.jpg); */
+}
+.sli4 {
+	/* background: url(kitty.jpg); */
+}
+.header-text {
+	text-align: center;
+	margin: auto auto;
+}
+.slider-text {
+	text-align: center;
+	padding-top: 200px;
+	justify-content: center;
+	vertical-align: middle;
+}
