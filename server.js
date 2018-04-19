@@ -60,7 +60,7 @@ app.get('/js/ga.js', function(req, res, next) {
 		if (err) {
 			next(err);
 		} else {
-			console.log('Sent:', fileName);
+			// console.log('Sent:', fileName);
 		}
 	});
 });
@@ -80,7 +80,7 @@ app.get('/resume', function(req, res, next) {
 		if (err) {
 			next(err);
 		} else {
-			console.log('Sent:', fileName);
+			// console.log('Sent:', fileName);
 		}
 	});
 });
