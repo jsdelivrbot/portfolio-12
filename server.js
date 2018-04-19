@@ -177,7 +177,7 @@ if (configJSON.deployMode) {
 	https.createServer(options, app).listen(443, function() {
 		console.log('Listening on https://localhost');
 	});
-	http.listen(80);
+	https.createServer(app).listen(80);
 } else {
 	app.listen(port, () => {
 		console.log(`Listening on http://localhost:${port}\n`);
