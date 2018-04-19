@@ -87,6 +87,7 @@ app.get('/resume', function(req, res, next) {
 
 //PORT routes
 app.use('/film', express.static('public/portfolio/film'));
+app.use('/slider', express.static('public/portfolio/vert-slider'));
 
 //MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
