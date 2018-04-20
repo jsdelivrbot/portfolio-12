@@ -105,7 +105,7 @@
             <p class="flow-text">To take your business to the next level by improving your web and mobile presence.</p>
             <br>
             <!-- <a href="#about" class="btn btn-large white black-text">Learn More</a> -->
-            <a href="#contact" class="white-text">
+            <a href="#about" class="white-text">
               <i class="material-icons medium scroll-icon">arrow_drop_down_circle</i>
             </a>
           </div>
@@ -358,138 +358,7 @@
     </div>
   </section>
 
-  <script>
-    function validateEmail(email) {
-      let re =
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
-    }
 
-    function postContactForm() {
-      let name = document.getElementById('name').value;
-      let email = document.getElementById('email').value;
-      let phone = document.getElementById('phone').value;
-      let message = document.getElementById('message').value;
-      let subscription = document.getElementById('subscription').checked;
-
-      let errorTimeout = 2800;
-      let successTimeout = 8000;
-
-      if (!name) {
-        Materialize.toast('Please enter your name before submitting.', errorTimeout);
-        return;
-      }
-      if (!email || !validateEmail(email)) {
-        Materialize.toast('Please enter a valid email address before submitting.', errorTimeout);
-        return;
-      }
-      if (!phone) {
-        Materialize.toast('Please enter your phone number before submitting.', errorTimeout);
-        return;
-      }
-      if (!message) {
-        Materialize.toast('Please enter a message before submitting.', errorTimeout);
-        return;
-      }
-
-      //else, user entered all information, send an email.
-      axios.post('/send-email', {
-          name: name,
-          email: email,
-          phone: phone,
-          message: message,
-          subscription: subscription
-        })
-        .then(function (response) {
-          // console.log(response);
-          Materialize.toast(
-            `Message sent successfully! Thanks for reaching out, I'll get back to you at the email address you provided soon.`,
-            successTimeout);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-    }
-
-    $(document).ready(function () {
-      //Materialize.AutoInit();
-      axios.get('/browser-refresh-url')
-        .then(function (response) {
-          // console.log('reponse: ', response.data.toString().search('404'));
-          if (response.data.toString().search('404') == -1) {
-            let broswerRefreshURL = document.createElement('script');
-            broswerRefreshURL.setAttribute('type', 'text/javascript');
-            broswerRefreshURL.setAttribute('src', response.data);
-            document.head.appendChild(broswerRefreshURL);
-          }
-        }).catch(function (error) {
-          console.log(error);
-        });
-      // Init Sidenav
-      $('.button-collapse').sideNav();
-
-      // Init Scrollspy
-      let scrollOptions = {
-        scrollOffset: 50
-      };
-      $('.scrollspy').scrollSpy(scrollOptions);
-
-
-
-      // ScrollFire
-      const options = [{
-          selector: '.main-text',
-          offset: 0,
-          callback: function (el) {
-            Materialize.fadeInImage($(el));
-          }
-        },
-        {
-          selector: '.navbar-fixed',
-          offset: 900,
-          callback: function () {}
-        }
-      ];
-
-      Materialize.scrollFire(options);
-
-      const position = [40.4249, -111.7979];
-      const centerPosition = [40.5150, -111.6079];
-
-      function showGoogleMaps() {
-        // Map positions
-        const latLng = new google.maps.LatLng(position[0], position[1]);
-        const centerLatLng = new google.maps.LatLng(centerPosition[0], centerPosition[1]);
-
-        // Map options
-        const mapOptions = {
-          zoom: 10,
-          streetViewControl: false,
-          scaleControl: true,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          center: centerLatLng,
-          key: 'AIzaSyBjckrSN4k3GpkHD57EQ1yBo8WpCw3N4Ds'
-        }
-
-        // Create map
-        map = new google.maps.Map(document.getElementById('googlemap'), mapOptions);
-
-        // Show Marker
-        marker = new google.maps.Marker({
-          position: latLng,
-          map: map,
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-          key: 'AIzaSyBjckrSN4k3GpkHD57EQ1yBo8WpCw3N4Ds'
-        });
-      }
-
-      // Maps event
-      google.maps.event.addDomListener(window, 'load', showGoogleMaps);
-
-    });
-  </script>
 
 </body>
 
@@ -500,5 +369,138 @@
   </div>
 
 </footer>
+
+<script>
+  function validateEmail(email) {
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  function postContactForm() {
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let phone = document.getElementById('phone').value;
+    let message = document.getElementById('message').value;
+    let subscription = document.getElementById('subscription').checked;
+
+    let errorTimeout = 2800;
+    let successTimeout = 8000;
+
+    if (!name) {
+      Materialize.toast('Please enter your name before submitting.', errorTimeout);
+      return;
+    }
+    if (!email || !validateEmail(email)) {
+      Materialize.toast('Please enter a valid email address before submitting.', errorTimeout);
+      return;
+    }
+    if (!phone) {
+      Materialize.toast('Please enter your phone number before submitting.', errorTimeout);
+      return;
+    }
+    if (!message) {
+      Materialize.toast('Please enter a message before submitting.', errorTimeout);
+      return;
+    }
+
+    //else, user entered all information, send an email.
+    axios.post('/send-email', {
+        name: name,
+        email: email,
+        phone: phone,
+        message: message,
+        subscription: subscription
+      })
+      .then(function (response) {
+        // console.log(response);
+        Materialize.toast(
+          `Message sent successfully! Thanks for reaching out, I'll get back to you at the email address you provided soon.`,
+          successTimeout);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
+  $(document).ready(function () {
+    //Materialize.AutoInit();
+    axios.get('/browser-refresh-url')
+      .then(function (response) {
+        // console.log('reponse: ', response.data.toString().search('404'));
+        if (response.data.toString().search('404') == -1) {
+          let broswerRefreshURL = document.createElement('script');
+          broswerRefreshURL.setAttribute('type', 'text/javascript');
+          broswerRefreshURL.setAttribute('src', response.data);
+          document.head.appendChild(broswerRefreshURL);
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    // Init Sidenav
+    $('.button-collapse').sideNav();
+
+    // Init Scrollspy
+    let scrollOptions = {
+      scrollOffset: 50
+    };
+    $('.scrollspy').scrollSpy(scrollOptions);
+
+
+
+    // ScrollFire
+    const options = [{
+        selector: '.main-text',
+        offset: 0,
+        callback: function (el) {
+          Materialize.fadeInImage($(el));
+        }
+      },
+      {
+        selector: '.navbar-fixed',
+        offset: 900,
+        callback: function () {}
+      }
+    ];
+
+    Materialize.scrollFire(options);
+
+    const position = [40.4249, -111.7979];
+    const centerPosition = [40.5150, -111.6079];
+
+    function showGoogleMaps() {
+      // Map positions
+      const latLng = new google.maps.LatLng(position[0], position[1]);
+      const centerLatLng = new google.maps.LatLng(centerPosition[0], centerPosition[1]);
+
+      // Map options
+      const mapOptions = {
+        zoom: 10,
+        streetViewControl: false,
+        scaleControl: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: centerLatLng,
+        key: 'AIzaSyBjckrSN4k3GpkHD57EQ1yBo8WpCw3N4Ds'
+      }
+
+      // Create map
+      map = new google.maps.Map(document.getElementById('googlemap'), mapOptions);
+
+      // Show Marker
+      marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP,
+        key: 'AIzaSyBjckrSN4k3GpkHD57EQ1yBo8WpCw3N4Ds'
+      });
+    }
+
+    // Maps event
+    google.maps.event.addDomListener(window, 'load', showGoogleMaps);
+
+  });
+</script>
 
 </html>
