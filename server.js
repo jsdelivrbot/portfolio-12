@@ -31,7 +31,6 @@ app.use(
 app.use(bodyParser.json());
 app.use(compression());
 let router = express.Router();
-const webRoot = path.join(__dirname, 'public');
 
 //root routes
 if (configJSON.underMaintenance) {
@@ -172,8 +171,6 @@ if (configJSON.deployMode) {
 			process.send('online'); //setup browser refresh
 		}
 	});
-	// const http = require('http');
-	// http.createServer(app).listen(80);
 } else {
 	console.log('\nDeploy mode DISABLED...');
 	//handle dynamic browser refresh crap
