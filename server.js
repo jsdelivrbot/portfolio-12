@@ -162,6 +162,7 @@ app.post('/send-email', (req, res) => {
 });
 
 if (configJSON.deployMode) {
+	//https shit
 	let key = fs.readFileSync('ssl/private.key');
 	let cert = fs.readFileSync('ssl/certificate.crt');
 	let ca = fs.readFileSync('ssl/ca_bundle.crt');
@@ -180,6 +181,7 @@ if (configJSON.deployMode) {
 		}
 	});
 } else {
+	//not being deployed, http will do just fine.
 	app.listen(port, () => {
 		console.log(`Listening on http://localhost:${port}\n`);
 		if (process.send) {
