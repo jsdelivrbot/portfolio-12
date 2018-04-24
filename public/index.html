@@ -403,6 +403,12 @@
       Materialize.toast('Please enter a message before submitting.', errorTimeout);
       return;
     }
+    let sendEmailURL;
+    if (document.location.hostname == "localhost") {
+      sendEmailURL = 'http://localhost/send-email';
+    } else {
+      sendEmailURL = 'http://adappt.tech/send-email';
+    }
 
     //else, user entered all information, send an email.
     axios.post('/send-email', {

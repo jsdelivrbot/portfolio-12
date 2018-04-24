@@ -92,21 +92,6 @@ app.use('/slider', express.static('public/portfolio/vert-slider'));
 //MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
 
-if (configJSON.deployMode) {
-	console.log('\nDeploy mode ENABLED...');
-	//redirect on 404s
-	app.use('/404', express.static('public/misc-pages/404'));
-	app.all('*', function(req, res) {
-		res.redirect('/404');
-	});
-} else {
-	console.log('\nDeploy mode DISABLED...');
-	//handle dynamic browser refresh crap
-	app.use('/browser-refresh-url', function(req, res) {
-		res.send(process.env.BROWSER_REFRESH_URL);
-	});
-}
-
 //email stuff
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -162,6 +147,13 @@ app.post('/send-email', (req, res) => {
 });
 
 if (configJSON.deployMode) {
+	console.log('\nDeploy mode ENABLED...');
+	//redirect on 404s
+	app.use('/404', express.static('public/misc-pages/404'));
+	app.all('*', function(req, res) {
+		res.redirect('/404');
+	});
+
 	//https shit
 	let key = fs.readFileSync('ssl/private.key');
 	let cert = fs.readFileSync('ssl/certificate.crt');
@@ -173,14 +165,21 @@ if (configJSON.deployMode) {
 		ca: ca
 	};
 
-	let https = require('https');
+	const https = require('https');
 	https.createServer(options, app).listen(443, function() {
 		console.log('Listening on https://localhost');
 		if (process.send) {
 			process.send('online'); //setup browser refresh
 		}
 	});
+	// const http = require('http');
+	// http.createServer(app).listen(80);
 } else {
+	console.log('\nDeploy mode DISABLED...');
+	//handle dynamic browser refresh crap
+	app.use('/browser-refresh-url', function(req, res) {
+		res.send(process.env.BROWSER_REFRESH_URL);
+	});
 	//not being deployed, http will do just fine.
 	app.listen(port, () => {
 		console.log(`Listening on http://localhost:${port}\n`);
