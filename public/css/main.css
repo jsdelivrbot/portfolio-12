@@ -83,7 +83,7 @@
 .section-contact .card-panel {
 	position: relative;
 	z-index: 1;
-	margin-top: 110px;
+	margin-top: 5vh;
 }
 
 .divider1 {
@@ -92,25 +92,24 @@
 	background-size: cover;
 	background-position: center;
 	/* height: 100vh; */
-
 	min-height: 60vh;
 }
+
 .divider2 {
 	background: url(../img/dividers/divider2.jpg);
 	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
 	/* height: 100vh; */
-
 	min-height: 60vh;
 }
+
 .divider3 {
 	background: url(../img/dividers/divider3.jpg);
 	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
 	/* height: 100vh; */
-
 	min-height: 60vh;
 }
 
@@ -120,7 +119,7 @@
 
 #googlemap {
 	position: absolute;
-	min-height: 93vh;
+	min-height: 97vh;
 	width: 100%;
 	top: 0;
 	left: 0;
