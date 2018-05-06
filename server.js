@@ -9,19 +9,10 @@ const nodemailer = require('nodemailer');
 const exphbs = require('express-handlebars');
 const logger = require('morgan');
 
-// Get content from file
-const config = fs.readFileSync('config/config.json');
-// Define to JSON type
-const configJSON = JSON.parse(config);
-
-let port = configJSON.port;
-
 let app = express();
 
 // middleware
 app.use(helmet());
-// app.use(logger('dev'));
-
 // Body Parser Middleware
 app.use(
 	bodyParser.urlencoded({
@@ -30,21 +21,13 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(compression());
-let router = express.Router();
+// app.use(logger('dev'));
 
-//root routes
-if (configJSON.underMaintenance) {
-	console.log('\nMAINTENANCE MODE ENABLED...');
-	app.use('/', express.static('public/misc-pages/maintenance'));
-	app.use('/temp', express.static('public'));
-} else {
-	//site is NOT under maintenance. normal operation
-	app.use('/', express.static('public'));
-	app.use('/maintenance', express.static('public/misc-pages/maintenance'));
-}
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => express.static('public/'));
 
-//google analytics
-app.get('/js/ga.js', function(req, res, next) {
+//files
+app.get('/js/ga.js', function (req, res, next) {
 	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -55,7 +38,7 @@ app.get('/js/ga.js', function(req, res, next) {
 	};
 
 	let fileName = '/js/ga.js';
-	res.sendFile(fileName, options, function(err) {
+	res.sendFile(fileName, options, function (err) {
 		if (err) {
 			next(err);
 		} else {
@@ -63,8 +46,7 @@ app.get('/js/ga.js', function(req, res, next) {
 		}
 	});
 });
-
-app.get('/resume', function(req, res, next) {
+app.get('/resume', function (req, res, next) {
 	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -75,7 +57,7 @@ app.get('/resume', function(req, res, next) {
 	};
 
 	let fileName = '/misc-pages/resume.pdf';
-	res.sendFile(fileName, options, function(err) {
+	res.sendFile(fileName, options, function (err) {
 		if (err) {
 			next(err);
 		} else {
@@ -91,10 +73,11 @@ app.use('/slider', express.static('public/portfolio/vert-slider'));
 //MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
 
-//email stuff
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
 
+//api stuff
+app.use('/browser-refresh-url', function (req, res) {
+	res.send(process.env.BROWSER_REFRESH_URL);
+});
 app.post('/send-email', (req, res) => {
 	console.log(req.body);
 	let output = `
@@ -145,43 +128,16 @@ app.post('/send-email', (req, res) => {
 	});
 });
 
-if (configJSON.deployMode) {
-	console.log('\nDeploy mode ENABLED...');
-	//redirect on 404s
-	app.use('/404', express.static('public/misc-pages/404'));
-	app.all('*', function(req, res) {
-		res.redirect('/404');
-	});
+//handle all other 404s
+app.use('/404', express.static('public/misc-pages/404'));
+app.all('*', function (req, res) {
+	res.redirect('/404');
+});
 
-	//https shit
-	let key = fs.readFileSync('ssl/private.key');
-	let cert = fs.readFileSync('ssl/certificate.crt');
-	let ca = fs.readFileSync('ssl/ca_bundle.crt');
-
-	let options = {
-		key: key,
-		cert: cert,
-		ca: ca
-	};
-
-	const https = require('https');
-	https.createServer(options, app).listen(443, function() {
-		console.log('Listening on https://localhost');
-		if (process.send) {
-			process.send('online'); //setup browser refresh
-		}
-	});
-} else {
-	console.log('\nDeploy mode DISABLED...');
-	//handle dynamic browser refresh crap
-	app.use('/browser-refresh-url', function(req, res) {
-		res.send(process.env.BROWSER_REFRESH_URL);
-	});
-	//not being deployed, http will do just fine.
-	app.listen(port, () => {
-		console.log(`Listening on http://localhost:${port}\n`);
-		if (process.send) {
-			process.send('online'); //setup browser refresh
-		}
-	});
-}
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, function () {
+	console.log(`Listening on http://localhost:${PORT}`);
+	if (process.send) {
+		process.send('online'); //setup browser refresh
+	}
+});
