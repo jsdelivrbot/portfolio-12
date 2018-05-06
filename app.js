@@ -21,7 +21,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(compression());
-app.use(logger('dev'));
+// app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => express.static('public/'));
@@ -112,7 +112,7 @@ app.post('/send-email', (req, res) => {
 	// setup email data with unicode symbols
 	let mailOptions = {
 		from: '"Portfolio Contact Form Response" <contact@adappt.tech>', // sender address
-		to: 'harrison.thomas04@gmail.com', // list of receivers
+		to: 'contact@adappt.tech', // list of receivers
 		subject: 'Portfolio Contact Form Response', // Subject line
 		text: 'Hello world?', // plain text body
 		html: output // html body
