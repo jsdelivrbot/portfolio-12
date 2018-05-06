@@ -1,0 +1,8 @@
+{
+	"name": "Adappt Portfolio",
+	"description": "Full stack web developer helping small businesses create/re-create their online presence.",
+	"repository": "https://github.com/harryt04/portfolio.git",
+	"logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+	"keywords": ["node", "express", "heroku"],
+	"image": "heroku/nodejs"
+}
