@@ -21,9 +21,9 @@
 	"devDependencies": {},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "browser-refresh server.js",
-		"nodemon": "nodemon server.js",
-		"deploy": "node server.js"
+		"start": "browser-refresh app.js",
+		"nodemon": "nodemon app.js",
+		"deploy": "node app.js"
 	},
 	"repository": {
 		"type": "git",
