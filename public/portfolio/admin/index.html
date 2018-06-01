@@ -380,20 +380,18 @@
 
         let myChart3 = document.getElementById("myChart3"); //sales team (this month)
         new Chart(myChart3, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ["Sunday",
-                    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+                labels: ["J. Smith", "A. Einstein", "S. Doe", "M. Michaels", "R. Weasley", "H. Potter",
+                    "H. Granger"
                 ],
                 datasets: [{
-                    data: [15339, 21345, 18483, 24003, 23489,
-                        24092, 12034
+                    data: [18339, 21345, 18483, 24003, 23489,
+                        24092, 22034
                     ],
-                    lineTension: 0,
-                    backgroundColor: 'transparent',
-                    borderColor: '#007bff',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#007bff'
+                    backgroundColor: ['blue', 'red', 'yellow', 'green', 'gray', 'pink', 'purple'],
+                    borderColor: 'black',
+                    borderWidth: 1
                 }]
             },
             options: {
@@ -415,8 +413,8 @@
         new Chart(myChart4, {
             type: 'line',
             data: {
-                labels: ["Sunday",
-                    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+                labels: ["J. Smith",
+                    "A. Einstein", "S. Doe", "M. Michaels", "R. Weasley", "H. Potter", "H. Granger"
                 ],
                 datasets: [{
                     data: [15339, 21345, 18483, 24003, 23489,
