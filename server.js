@@ -143,6 +143,6 @@ app.listen(PORT, function () {
 		process.send('online'); //setup browser refresh
 	}
 
-	opn(`http://localhost:${PORT}`);
+	// opn(`http://localhost:${PORT}`);
 
 });
