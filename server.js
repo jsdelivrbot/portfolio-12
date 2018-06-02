@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => express.static('public/'));
 
 //files
-app.get('*/js/ga.js', function(req, res, next) {
+app.get('*/js/ga.js', function (req, res, next) {
 	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -38,7 +38,7 @@ app.get('*/js/ga.js', function(req, res, next) {
 	};
 
 	let fileName = '/js/ga.js';
-	res.sendFile(fileName, options, function(err) {
+	res.sendFile(fileName, options, function (err) {
 		if (err) {
 			next(err);
 		} else {
@@ -46,7 +46,7 @@ app.get('*/js/ga.js', function(req, res, next) {
 		}
 	});
 });
-app.get('/resume', function(req, res, next) {
+app.get('/resume', function (req, res, next) {
 	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -57,7 +57,7 @@ app.get('/resume', function(req, res, next) {
 	};
 
 	let fileName = '/misc-pages/resume.pdf';
-	res.sendFile(fileName, options, function(err) {
+	res.sendFile(fileName, options, function (err) {
 		if (err) {
 			next(err);
 		} else {
@@ -76,7 +76,7 @@ app.use('/admin', express.static('public/portfolio/admin'));
 app.use('/internet', express.static('public/misc-pages/internet'));
 
 //api stuff
-app.use('/browser-refresh-url', function(req, res) {
+app.use('/browser-refresh-url', function (req, res) {
 	res.send(process.env.BROWSER_REFRESH_URL);
 });
 app.post('/send-email', (req, res) => {
@@ -131,14 +131,18 @@ app.post('/send-email', (req, res) => {
 
 //handle all other 404s
 app.use('/404', express.static('public/misc-pages/404'));
-app.all('*', function(req, res) {
+app.all('*', function (req, res) {
 	res.redirect('/404');
 });
 
+const opn = require('opn');
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, function() {
+app.listen(PORT, function () {
 	console.log(`Listening on http://localhost:${PORT}`);
 	if (process.send) {
 		process.send('online'); //setup browser refresh
 	}
+
+	opn(`http://localhost:${PORT}`);
+
 });
