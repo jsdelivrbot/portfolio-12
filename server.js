@@ -71,6 +71,7 @@ app.use('/admin', express.static('public/portfolio/admin'));
 
 //MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
+app.use('/erc', express.static('public/misc-pages/effective-rate'));
 
 //api stuff
 app.use('/browser-refresh-url', function (req, res) {
