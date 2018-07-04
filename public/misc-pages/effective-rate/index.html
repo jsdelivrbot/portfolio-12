@@ -36,19 +36,19 @@
     <div id="app">
         <h3 class="center">Welcome to Adappt's Effective Rate Calculator</h3>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 center">
                 <div class="row">
-                    <div class="input-field col s3 offset-s2">
+                    <div class="input-field col s2 offset-s5">
                         <input id="first_name" type="text" class="validate" v-model="vr">
                         <label for="first_name">Variable rate fee percentage</label>
                     </div>
-                    <div class="input-field col s3">
+                    <div class="input-field col s2 offset-s5">
                         <input id="last_name" type="text" class="validate" v-model="fr">
                         <label for="last_name">Flat rate amount</label>
                     </div>
-                    <div class="input-field col s3">
-                        <input id="da" type="text" class="validate" v-model="da">
-                        <label for="da">Desired amount received</label>
+                    <div class="input-field col s2 offset-s5">
+                        <input id="desired-amount" type="text" class="validate" v-model="da">
+                        <label for="desired-amount">Desired amount received</label>
                     </div>
                 </div>
             </div>
@@ -65,13 +65,23 @@
         el: '#app',
         data: {
             vr: 2.3, //variable rate
-            fr: .3, //flat rate
+            fr: 0.3, //flat rate
             da: 100, //desired amount received //charge amount
+        },
+        methods: {
+            convertToNumbers: function () {
+                this.vr = parseFloat(this.vr);
+                this.fr = parseFloat(this.fr);
+                this.da = parseFloat(this.da);
+            }
         },
         computed: {
             actual: function () {
-                console.log('test');
-                let result = (this.da + this.fr) / (1 - (this.vr / 100));
+                this.convertToNumbers();
+                let num = this.da + this.fr;
+                let den = 1 - (this.vr / 100);
+                let result = num / den;
+
                 result = Math.round(result * 100) / 100
 
                 return `You need to charge: $${result}`;
