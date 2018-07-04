@@ -112,7 +112,7 @@ app.post('/send-email', (req, res) => {
 	// });
 
 	let email = {
-		from: 'contact@adappt.tech',
+		from: req.body.email,
 		to: 'contact@adappt.tech',
 		subject: 'Portfolio Contact Form Response',
 		text: 'Hello world?',
@@ -124,6 +124,7 @@ app.post('/send-email', (req, res) => {
 			console.log(error);
 		} else {
 			console.log('Message sent: ' + info.response);
+			res.send('Message Sent');
 		}
 	});
 });
