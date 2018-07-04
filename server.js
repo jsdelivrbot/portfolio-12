@@ -94,36 +94,37 @@ app.post('/send-email', (req, res) => {
     <p>${req.body.message}</p>
   `;
 
-	// create reusable transporter object using the default SMTP transport
-	let transporter = nodemailer.createTransport({
-		host: 'smtp.gmail.com',
-		port: 587,
-		secure: false, // true for 465, false for other ports
-		auth: {
-			user: 'adappt.email.server@gmail.com', // generated ethereal user
-			pass: 'serverFORadapptDOTtech' // generated ethereal password
-		},
-		tls: {
-			rejectUnauthorized: false
-		}
-	});
+	const sgTransport = require('nodemailer-sendgrid-transport');
 
-	// setup email data with unicode symbols
-	let mailOptions = {
-		from: '"Portfolio Contact Form Response" <contact@adappt.tech>', // sender address
-		to: 'contact@adappt.tech', // list of receivers
-		subject: 'Portfolio Contact Form Response', // Subject line
-		text: 'Hello world?', // plain text body
-		html: output // html body
+	let options = {
+		service: 'SendGrid',
+		auth: {
+			api_user: 'adappt-email-server',
+			api_key: 'server4adapptDOTtech'
+		}
+
+	}
+
+	let client = nodemailer.createTransport(sgTransport(options));
+
+	// var client = nodemailer.createTransport({
+
+	// });
+
+	let email = {
+		from: 'contact@adappt.tech',
+		to: 'contact@adappt.tech',
+		subject: 'Portfolio Contact Form Response',
+		text: 'Hello world?',
+		html: output
 	};
 
-	// send mail with defined transport object
-	transporter.sendMail(mailOptions, (error, info) => {
-		if (error) {
-			return console.log(error);
+	client.sendMail(email, function (err, info) {
+		if (err) {
+			console.log(error);
+		} else {
+			console.log('Message sent: ' + info.response);
 		}
-		console.log('Message Sent');
-		res.send('Message Sent');
 	});
 });
 
