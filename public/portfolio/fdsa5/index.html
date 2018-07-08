@@ -4,6 +4,8 @@
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" href="../favicon.png" type="image/x-icon" />
+
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
@@ -318,7 +320,9 @@
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('.carousel.carousel-slider').carousel({ fullWidth: true });
+      $('.carousel.carousel-slider').carousel({
+        fullWidth: true
+      });
       $('.button-collapse').sideNav();
       $('.modal').modal();
     });

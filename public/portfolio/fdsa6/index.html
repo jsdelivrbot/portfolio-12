@@ -4,6 +4,8 @@
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" href="../favicon.png" type="image/x-icon" />
+
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/main.css" />
@@ -401,12 +403,12 @@
           $(this).prop('Counter', 0).animate({
             Counter: $(this).text()
           }, {
-              duration: 1000,
-              easing: 'swing',
-              step: function (now) {
-                $(this).text(Math.ceil(now));
-              }
-            });
+            duration: 1000,
+            easing: 'swing',
+            step: function (now) {
+              $(this).text(Math.ceil(now));
+            }
+          });
         });
 
         // Comments - Approve & Deny
@@ -421,7 +423,8 @@
 
         // Quick Todos
         $('#todo-form').submit(function (e) {
-          const output = `<li class="collection-item">
+          const output =
+            `<li class="collection-item">
                 <div>${$('#todo').val()}
                   <a href="#!" class="secondary-content delete">
                     <i class="material-icons">close</i>

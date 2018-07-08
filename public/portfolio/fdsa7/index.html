@@ -4,6 +4,8 @@
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" href="../favicon.png" type="image/x-icon" />
+
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/main.css" />
@@ -247,19 +249,24 @@
       $('.modal').modal();
 
       // Scrollfire
-      const options = [
-        {
-          selector: '.row-1', offset: 50, callback: function (el) {
+      const options = [{
+          selector: '.row-1',
+          offset: 50,
+          callback: function (el) {
             Materialize.fadeInImage($(el));
           }
         },
         {
-          selector: '.row-2', offset: 300, callback: function (el) {
+          selector: '.row-2',
+          offset: 300,
+          callback: function (el) {
             Materialize.fadeInImage($(el));
           }
         },
         {
-          selector: '.row-3', offset: 400, callback: function (el) {
+          selector: '.row-3',
+          offset: 400,
+          callback: function (el) {
             Materialize.fadeInImage($(el));
           }
         }
