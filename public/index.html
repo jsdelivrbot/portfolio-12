@@ -208,7 +208,7 @@
         <div class="col s12 m4">
           <div class="card white black-text z-depth-4">
             <div class="card-image">
-              <img src="img/port-pics/blog-admine.jpg">
+              <img src="img/port-pics/blog-admin.jpg">
               <h5>Blog Admin</h5>
             </div>
             <div class="card-action">
@@ -220,12 +220,12 @@
         <div class="col s12 m4">
           <div class="card white black-text z-depth-4">
             <div class="card-image">
-              <img src="img/port-pics/port3.jpg">
-              <h5>Website 3</h5>
+              <img src="img/port-pics/mockerr.jpg">
+              <h5>Mockerr</h5>
             </div>
             <div class="card-action">
-              <p>Lorem ipsum dolor sit amet.</p>
-              <a href="" target="_blank">Preview</a>
+              <p>Single page brochure site.</p>
+              <a href="portfolio/mockerr" target="_blank">Preview</a>
             </div>
           </div>
         </div>
@@ -411,12 +411,12 @@
 
     //else, user entered all information, send an email.
     axios.post('/send-email', {
-        name: name,
-        email: email,
-        phone: phone,
-        message: message,
-        subscription: subscription
-      })
+      name: name,
+      email: email,
+      phone: phone,
+      message: message,
+      subscription: subscription
+    })
       .then(function (response) {
         console.log(response);
         Materialize.toast(
@@ -456,17 +456,17 @@
 
     // ScrollFire
     const options = [{
-        selector: '.main-text',
-        offset: 0,
-        callback: function (el) {
-          Materialize.fadeInImage($(el));
-        }
-      },
-      {
-        selector: '.navbar-fixed',
-        offset: 900,
-        callback: function () {}
+      selector: '.main-text',
+      offset: 0,
+      callback: function (el) {
+        Materialize.fadeInImage($(el));
       }
+    },
+    {
+      selector: '.navbar-fixed',
+      offset: 900,
+      callback: function () { }
+    }
     ];
 
     Materialize.scrollFire(options);

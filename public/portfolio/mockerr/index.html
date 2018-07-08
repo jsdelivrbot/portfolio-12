@@ -420,14 +420,13 @@
     $("#main-nav a").on('click', function (event) {
       if (this.hash !== "") {
         event.preventDefault();
-
         const hash = this.hash;
 
         $('html, body').animate({
-          scrollTop: $(hash).offset().top
+          scrollTop: $(hash).offset().top - 120
         }, 800, function () {
 
-          window.location.hash = hash;
+          // window.location.hash = hash
         });
       }
     });
