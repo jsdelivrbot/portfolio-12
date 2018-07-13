@@ -9,14 +9,26 @@
 }
 
 .page-footer {
-	position: absolute;
-	right: 0;
-	bottom: 0;
+	position: relative;
 	left: 0;
+	bottom: 0 !important;
 	padding-top: 0 !important;
 	width: 100%;
 	display: block;
-	z-index: 1;
+	z-index: 0;
+}
+
+#googlemap {
+	position: absolute;
+	height: 90vh;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.section-contact {
+	height: 90vh;
 }
 
 .main-header {
@@ -125,15 +137,6 @@
 
 .selfie {
 	height: 360px !important;
-}
-
-#googlemap {
-	position: absolute;
-	min-height: 97vh;
-	width: 100%;
-	top: 0;
-	left: 0;
-	z-index: -1;
 }
 
 @media (max-width: 600px) {
