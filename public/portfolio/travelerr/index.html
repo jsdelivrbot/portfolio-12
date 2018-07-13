@@ -355,7 +355,10 @@
       });
 
       // Init Scrollspy
-      $('.scrollspy').scrollSpy();
+      let scrollOptions = {
+        scrollOffset: 50
+      };
+      $('.scrollspy').scrollSpy(scrollOptions);
 
     });
   </script>
