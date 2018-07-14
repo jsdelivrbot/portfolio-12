@@ -86,13 +86,7 @@
 .section-contact .card-panel {
 	position: relative;
 	z-index: 1;
-	height: 80vh;
 	margin-top: 5vh;
-}
-.reduce-padding {
-	padding: 0;
-	margin-bottom: 5px;
-	margin-top: 5px;
 }
 
 .divider1 {
