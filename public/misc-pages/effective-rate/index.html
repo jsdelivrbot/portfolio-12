@@ -70,6 +70,10 @@
         },
         methods: {
             convertToNumbers: function () {
+                if (this.vr == "") this.vr = 0;
+                if (this.fr == "") this.fr = 0;
+                if (this.da == "") this.da = 0;
+
                 this.vr = parseFloat(this.vr);
                 this.fr = parseFloat(this.fr);
                 this.da = parseFloat(this.da);
