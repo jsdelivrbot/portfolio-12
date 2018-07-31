@@ -80,6 +80,12 @@ app.use('/browser-refresh-url', function(req, res) {
 	res.send(process.env.BROWSER_REFRESH_URL);
 });
 
+app.post('/post-stuff', (req, response) => {
+	axios.post(req.body.url, req.body).then(function(res) {
+		response.send(res.data);
+	});
+});
+
 app.post('/get-stuff', (request, response) => {
 	axios.get(request.body.url).then(function(res) {
 		response.send(res.data);

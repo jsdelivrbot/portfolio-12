@@ -29,9 +29,10 @@
 </head>
 
 <body>
-    <div class="container">
-
-        <canvas class="centerize canvas" id="canvas"></canvas>
+    <div id="app">
+        <div class="container">
+            <canvas class="centerize canvas" id="canvas"></canvas>
+        </div>
     </div>
 
 </body>
@@ -48,27 +49,40 @@
         },
         created() {
 
+            axios.post('/get-stuff',
+                {
+                    url: 'http://services.runescape.com/m=itemdb_rs/results?query=shark&minPrice=0&maxPrice=&members=',
+                    query: 'shark'
+                })
+                .then(function (sharkResponse) {
+                    console.log('sharkResponse: ', sharkResponse.data);
+
+                });
+
             axios.post('/get-stuff', {
                 //url: 'http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=21787'
                 url: 'http://services.runescape.com/m=itemdb_rs/api/graph/21787.json'
             }).then(function (response) {
-                let oldDates = Object.keys(response.data.daily);
+
+                let data = response.data.average;
+
+                let oldDates = Object.keys(data);
                 let dates = [];
                 for (let date of oldDates) {
                     let oldDate = new Date(0);
                     oldDate.setUTCMilliseconds(date);
                     oldDate = oldDate.toString();
-                    oldDate = oldDate.substr(0, oldDate.indexOf('GMT'))
+                    oldDate = oldDate.substr(0, oldDate.indexOf('2018'))
                     dates.push(oldDate);
                 }
 
-                let values = Object.values(response.data.daily);
+                let values = Object.values(data);
                 datesLength = dates.length;
                 valuesLength = values.length;
 
-                dates = dates.slice(datesLength - 10, datesLength);
-                console.log('dates: ', dates);
-                values = values.slice(valuesLength - 10, valuesLength);
+                dates = dates.slice(datesLength - 20, datesLength);
+                values = values.slice(valuesLength - 20, valuesLength);
+
 
                 var config = {
                     type: 'line',
