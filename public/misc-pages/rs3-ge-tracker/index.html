@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../../img/favicon.png" type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script type="text/javascript" async src="../js/ga.js"></script>
+    <script>
+        if (document.location.hostname != "localhost") {
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'UA-117752149-1');
+        }
+    </script>
+    <title>
+        RS3 GE Tracker
+    </title>
+</head>
+<style>
+    .center {
+        text-align: center;
+        padding-top: 70px;
+    }
+</style>
+
+<body>
+
+
+</body>
+
+<script>
+    let messageField = document.getElementById('message');
+    let app = new Vue({
+        el: '#app',
+        data: {
+        },
+        methods: {
+        },
+        computed: {
+        },
+        created() {
+            axios.get('/browser-refresh-url').then(function (response) {
+                if (response.data.toString().search('404') == -1) {
+                    let broswerRefreshURL = document.createElement('script');
+                    broswerRefreshURL.setAttribute('type',
+                        'text/javascript');
+                    broswerRefreshURL.setAttribute('src', response.data);
+                    document.head.appendChild(broswerRefreshURL);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+            axios.post('/get-stuff', {
+                url: 'http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=21787'
+            }).then(function (response) {
+                console.log('response: ', response.data.item);
+            });
+        }
+    })
+</script>
+
+<script>
+</script>
+
+</html>

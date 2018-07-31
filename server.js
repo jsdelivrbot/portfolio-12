@@ -8,6 +8,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const exphbs = require('express-handlebars');
 const logger = require('morgan');
+const axios = require('axios');
 
 let app = express();
 
@@ -27,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => express.static('public/'));
 
 //files
-app.get('*/js/ga.js', function (req, res, next) {
+app.get('*/js/ga.js', function(req, res, next) {
 	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -38,7 +39,7 @@ app.get('*/js/ga.js', function (req, res, next) {
 	};
 
 	let fileName = '/js/ga.js';
-	res.sendFile(fileName, options, function (err) {
+	res.sendFile(fileName, options, function(err) {
 		if (err) {
 			next(err);
 		} else {
@@ -46,7 +47,7 @@ app.get('*/js/ga.js', function (req, res, next) {
 		}
 	});
 });
-app.get('/resume', function (req, res, next) {
+app.get('/resume', function(req, res, next) {
 	let options = {
 		root: __dirname + '/public/',
 		dotfiles: 'deny',
@@ -57,7 +58,7 @@ app.get('/resume', function (req, res, next) {
 	};
 
 	let fileName = '/misc-pages/resume.pdf';
-	res.sendFile(fileName, options, function (err) {
+	res.sendFile(fileName, options, function(err) {
 		if (err) {
 			next(err);
 		} else {
@@ -72,11 +73,19 @@ app.use('/admin', express.static('public/portfolio/admin'));
 //MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
 app.use('/erc', express.static('public/misc-pages/effective-rate'));
+app.use('/rs3-ge-tracker', express.static('public/misc-pages/rs3-ge-tracker'));
 
 //api stuff
-app.use('/browser-refresh-url', function (req, res) {
+app.use('/browser-refresh-url', function(req, res) {
 	res.send(process.env.BROWSER_REFRESH_URL);
 });
+
+app.post('/get-stuff', (request, response) => {
+	axios.get(request.body.url).then(function(res) {
+		response.send(res.data);
+	});
+});
+
 app.post('/send-email', (req, res) => {
 	console.log(req.body);
 	let output = `
@@ -102,8 +111,7 @@ app.post('/send-email', (req, res) => {
 			api_user: 'adappt-email-server',
 			api_key: 'server4adapptDOTtech'
 		}
-
-	}
+	};
 
 	let client = nodemailer.createTransport(sgTransport(options));
 
@@ -119,7 +127,7 @@ app.post('/send-email', (req, res) => {
 		html: output
 	};
 
-	client.sendMail(email, function (err, info) {
+	client.sendMail(email, function(err, info) {
 		if (err) {
 			console.log(error);
 		} else {
@@ -131,18 +139,17 @@ app.post('/send-email', (req, res) => {
 
 //handle all other 404s
 app.use('/404', express.static('public/misc-pages/404'));
-app.all('*', function (req, res) {
+app.all('*', function(req, res) {
 	res.redirect('/404');
 });
 
 const opn = require('opn');
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, function () {
+app.listen(PORT, function() {
 	console.log(`Listening on http://localhost:${PORT}`);
 	if (process.send) {
 		process.send('online'); //setup browser refresh
 	}
 
 	// opn(`http://localhost:${PORT}`);
-
 });

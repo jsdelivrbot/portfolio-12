@@ -4,6 +4,7 @@
 	"description": "portfolio for adappt.tech",
 	"main": "server.js",
 	"dependencies": {
+		"axios": "^0.18.0",
 		"body-parser": "^1.18.2",
 		"browser-refresh": "^1.7.2",
 		"compression": "^1.7.2",
