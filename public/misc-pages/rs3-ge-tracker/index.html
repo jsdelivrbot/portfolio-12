@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../../img/favicon.png" type="image/x-icon" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script type="text/javascript" async src="../js/ga.js"></script>
     <script>
@@ -28,7 +29,10 @@
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
+    <div class="container">
+
+        <canvas class="centerize canvas" id="canvas"></canvas>
+    </div>
 
 </body>
 
@@ -48,49 +52,39 @@
                 //url: 'http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=21787'
                 url: 'http://services.runescape.com/m=itemdb_rs/api/graph/21787.json'
             }).then(function (response) {
-                console.log('response: ', Object.keys(response.data.daily)[0]);
-                let date = new Date(0);
-                date.setUTCMilliseconds(Object.keys(response.data.daily)[0]);
-                console.log('test: ', date);
+                let oldDates = Object.keys(response.data.daily);
+                let dates = [];
+                for (let date of oldDates) {
+                    let oldDate = new Date(0);
+                    oldDate.setUTCMilliseconds(date);
+                    oldDate = oldDate.toString();
+                    oldDate = oldDate.substr(0, oldDate.indexOf('GMT'))
+                    dates.push(oldDate);
+                }
+
+                let values = Object.values(response.data.daily);
+                datesLength = dates.length;
+                valuesLength = values.length;
+
+                dates = dates.slice(datesLength - 10, datesLength);
+                console.log('dates: ', dates);
+                values = values.slice(valuesLength - 10, valuesLength);
+
                 var config = {
                     type: 'line',
                     data: {
-                        labels: Object.keys(response.data.daily),
+                        labels: dates,
                         datasets: [{
                             label: 'My First dataset',
-                            backgroundColor: window.chartColors.red,
-                            borderColor: window.chartColors.red,
-                            data: [
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor()
-                            ],
+                            data: values,
                             fill: false,
-                        }, {
-                            label: 'My Second dataset',
-                            fill: false,
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            data: [
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor()
-                            ],
-                        }]
+                        },]
                     },
                     options: {
                         responsive: true,
                         title: {
                             display: true,
-                            text: 'Chart.js Line Chart'
+                            text: 'Results for your search'
                         },
                         tooltips: {
                             mode: 'index',
@@ -105,14 +99,17 @@
                                 display: true,
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Month'
+                                    labelString: 'Dates'
+                                },
+                                ticks: {
+                                    autoSkip: false
                                 }
                             }],
                             yAxes: [{
                                 display: true,
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Value'
+                                    labelString: 'Value of item'
                                 }
                             }]
                         }

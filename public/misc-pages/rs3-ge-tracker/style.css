@@ -3,7 +3,12 @@ canvas {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 }
-.center {
+
+.canvas {
+	/* margin: 100px;
+	width: 700px; */
+}
+.centerize {
 	text-align: center;
-	padding-top: 70px;
+	/* padding-top: 70px; */
 }
