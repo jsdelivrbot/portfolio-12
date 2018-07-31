@@ -30,7 +30,59 @@
 
 <body>
     <div id="app">
-        <div class="container">
+        <div v-show="loading" id="loading" class="center">
+            <h1>Loading...</h1>
+            <div class="preloader-wrapper big active center">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-show="!loading" class="container">
             <canvas class="centerize canvas" id="canvas"></canvas>
         </div>
     </div>
@@ -42,22 +94,24 @@
     let app = new Vue({
         el: '#app',
         data: {
+            loading: true
         },
         methods: {
         },
         computed: {
         },
         created() {
+            let self = this;
 
-            axios.post('/get-stuff',
-                {
-                    url: 'http://services.runescape.com/m=itemdb_rs/results?query=shark&minPrice=0&maxPrice=&members=',
-                    query: 'shark'
-                })
-                .then(function (sharkResponse) {
-                    console.log('sharkResponse: ', sharkResponse.data);
+            // axios.post('/get-stuff',
+            //     {
+            //         url: 'http://services.runescape.com/m=itemdb_rs/results?query=shark&minPrice=0&maxPrice=&members=',
+            //         query: 'shark'
+            //     })
+            //     .then(function (sharkResponse) {
+            //         console.log('sharkResponse: ', sharkResponse.data);
 
-                });
+            //     });
 
             axios.post('/get-stuff', {
                 //url: 'http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=21787'
@@ -131,6 +185,7 @@
                 };
                 var ctx = document.getElementById('canvas').getContext('2d');
                 window.myLine = new Chart(ctx, config);
+                self.loading = false;
 
             });
             axios.get('/browser-refresh-url').then(function (response) {

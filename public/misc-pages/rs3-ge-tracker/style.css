@@ -8,6 +8,10 @@ canvas {
 	/* margin: 100px;
 	width: 700px; */
 }
+
+#loading {
+	padding-top: 10vh;
+}
 .centerize {
 	text-align: center;
 	/* padding-top: 70px; */
