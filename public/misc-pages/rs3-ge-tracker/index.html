@@ -26,15 +26,9 @@
         RS3 GE Tracker
     </title>
 </head>
-<style>
-    .center {
-        text-align: center;
-        padding-top: 70px;
-    }
-</style>
 
 <body>
-
+    <canvas id="canvas"></canvas>
 
 </body>
 
@@ -49,6 +43,85 @@
         computed: {
         },
         created() {
+
+            axios.post('/get-stuff', {
+                //url: 'http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=21787'
+                url: 'http://services.runescape.com/m=itemdb_rs/api/graph/21787.json'
+            }).then(function (response) {
+                console.log('response: ', Object.keys(response.data.daily)[0]);
+                let date = new Date(0);
+                date.setUTCMilliseconds(Object.keys(response.data.daily)[0]);
+                console.log('test: ', date);
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: Object.keys(response.data.daily),
+                        datasets: [{
+                            label: 'My First dataset',
+                            backgroundColor: window.chartColors.red,
+                            borderColor: window.chartColors.red,
+                            data: [
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor()
+                            ],
+                            fill: false,
+                        }, {
+                            label: 'My Second dataset',
+                            fill: false,
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.blue,
+                            data: [
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor(),
+                                randomScalingFactor()
+                            ],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Chart.js Line Chart'
+                        },
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        hover: {
+                            mode: 'nearest',
+                            intersect: true
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Month'
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Value'
+                                }
+                            }]
+                        }
+                    }
+                };
+                var ctx = document.getElementById('canvas').getContext('2d');
+                window.myLine = new Chart(ctx, config);
+
+            });
             axios.get('/browser-refresh-url').then(function (response) {
                 if (response.data.toString().search('404') == -1) {
                     let broswerRefreshURL = document.createElement('script');
@@ -60,11 +133,7 @@
             }).catch(function (error) {
                 console.log(error);
             });
-            axios.post('/get-stuff', {
-                url: 'http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=21787'
-            }).then(function (response) {
-                console.log('response: ', response.data.item);
-            });
+
         }
     })
 </script>
