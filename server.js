@@ -73,7 +73,8 @@ app.use('/admin', express.static('public/portfolio/admin'));
 //MISC routes
 app.use('/internet', express.static('public/misc-pages/internet'));
 app.use('/erc', express.static('public/misc-pages/effective-rate'));
-app.use('/rs3-ge-tracker', express.static('public/misc-pages/rs3-ge-tracker'));
+app.use('/apod', express.static('public/misc-pages/apotd'));
+app.use('/rs3gt', express.static('public/misc-pages/rs3-ge-tracker'));
 
 //api stuff
 app.use('/browser-refresh-url', function(req, res) {
@@ -88,6 +89,7 @@ app.post('/post-stuff', (req, response) => {
 
 app.post('/get-stuff', (request, response) => {
 	axios.get(request.body.url).then(function(res) {
+		console.log('res: ', res.datas);
 		response.send(res.data);
 	});
 });

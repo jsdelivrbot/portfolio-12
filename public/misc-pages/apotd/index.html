@@ -19,9 +19,64 @@
 
         <h1 class="center">Free NASA APOTD Library Downloader</h1>
 
-        <h5 class="center pad-top">Click
-            <a type="button" @click="downloadLib">here</a> to download NASA's library of Astronomy Picture of the Day.</h5>
+        <div v-show="loading" class="center">
+            <h1>Loading...</h1>
+            <div class="preloader-wrapper big active center">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
 
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="!loading">
+            <h5 class="center pad-top">Click
+                <a type="button" @click="downloadLib">here</a> to download NASA's library of Astronomy Picture of the Day.</h5>
+
+        </div>
     </div>
 
 </body>
@@ -30,24 +85,56 @@
     var app = new Vue({
         el: '#app',
         data: {
+            loading: true,
+            picURLS: []
         },
         methods: {
-            downloadLib: function () {
-                console.log('dowbload lib');
+            downloadLib() {
 
-                let site = 'https://apod.nasa.gov/apod/archivepix.html';
-
-                $.ajax({
-                    url: 'https://apod.nasa.gov/apod/archivepix.html',
-                    type: 'GET',
-                    success: function (res) {
-                        console.log('res: ', res);
-
-                    }
-                });
-
-                // Works with $.get too!
             }
+        },
+        created() {
+            let self = this;
+            let startingIndex = 3; //first 3 links on nasa site are not pictures
+            const BASE_NASA_URL = 'https://apod.nasa.gov/';
+
+            axios.post('/get-stuff',
+                {
+                    url: 'https://apod.nasa.gov/apod/archivepix.html'
+                }).then(function (response) {
+                    let parser = document.createElement('html');
+                    parser.innerHTML = response.data;
+                    let links = parser.getElementsByTagName('a');
+
+                    let picLinks = [];
+                    for (let i = startingIndex; i < links.length; i++) {
+                        picLinks.push(links[i].href);
+                    }
+
+                    links = picLinks;
+
+                    picLinks = [];
+
+                    for (let link of links) {
+                        let tempLink = link.substr(link.indexOf('apod/'), link.length);
+                        let picHTMLURL = BASE_NASA_URL + tempLink;
+                        picLinks.push(picHTMLURL)
+                    }
+                    self.picURLS = picLinks;
+                    self.loading = false;
+
+                });
+            axios.get('/browser-refresh-url').then(function (response) {
+                if (response.data.toString().search('404') == -1) {
+                    let broswerRefreshURL = document.createElement('script');
+                    broswerRefreshURL.setAttribute('type',
+                        'text/javascript');
+                    broswerRefreshURL.setAttribute('src', response.data);
+                    document.head.appendChild(broswerRefreshURL);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     });
 
