@@ -89,7 +89,6 @@ app.post('/post-stuff', (req, response) => {
 
 app.post('/get-stuff', (request, response) => {
 	axios.get(request.body.url).then(function(res) {
-		console.log('res: ', res.datas);
 		response.send(res.data);
 	});
 });
