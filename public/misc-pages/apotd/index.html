@@ -90,7 +90,12 @@
         },
         methods: {
             downloadLib() {
-
+                let self = this;
+                axios.post('/get-stuff', {
+                    url: self.picURLS[0]
+                }).then(function (response) {
+                    console.log('response: ', response.data);
+                });
             }
         },
         created() {
