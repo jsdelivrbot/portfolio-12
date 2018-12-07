@@ -439,65 +439,14 @@
     <div class="container">
       <div class="row">
         <div class="col s12 m6 offset-m6">
-          <div class="card-panel z-depth-5">
-            <h4>Get In Touch</h4>
-            <form id="contact-form">
-              <div class="input-field reduce-padding col s12">
-                <input
-                  type="text"
-                  id="name"
-                >
-                <label for="name">Full Name</label>
-              </div>
-              <div class="input-field reduce-padding col s12">
-                <input
-                  type="email"
-                  id="email"
-                  class="validate"
-                >
-                <label
-                  for="email"
-                  data-error="Please enter a valid email address."
-                  data-success="Valid."
-                >Email</label>
-              </div>
-              <div class="input-field reduce-padding col s12">
-                <input
-                  type="text"
-                  id="phone"
-                >
-                <label for="phone">Phone Number</label>
-              </div>
-              <div class="input-field reduce-padding col s12">
-                <textarea
-                  class="materialize-textarea"
-                  id="message"
-                ></textarea>
-                <label for="message">Message</label>
-              </div>
-              <div
-                style="padding-bottom: 12px;"
-                class="col s12"
-              >
-                <p>
-                  <label>
-                    <input
-                      id="subscription"
-                      type="checkbox"
-                    />
-                    <span style="text-align: left; font-size: 12px;">Sign up to be notified when there are discounts or
-                      promotions going on!</span>
-                  </label>
-                </p>
-              </div>
-
-              <a
-                class="waves-effect waves-light btn blue-grey"
-                onclick="postContactForm()"
-              >Submit</a>
-            </form>
-
-          </div>
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfSDL-ojpU-I9fp-5MYFJDjWjcBGio11UgVWqlIiWH0HrnkGA/viewform?embedded=true"
+            width="640"
+            height="700"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+          >Loading...</iframe>
         </div>
       </div>
     </div>
@@ -516,73 +465,7 @@
     return re.test(String(email).toLowerCase());
   }
 
-  function postContactForm() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let phone = document.getElementById('phone').value;
-    let message = document.getElementById('message').value;
-    let subscription = document.getElementById('subscription').checked;
-
-    let errorTimeout = 2800;
-    let successTimeout = 8000;
-
-    if (!name) {
-      Materialize.toast('Please enter your name before submitting.', errorTimeout);
-      return;
-    }
-    if (!email || !validateEmail(email)) {
-      Materialize.toast('Please enter a valid email address before submitting.', errorTimeout);
-      return;
-    }
-    if (!phone) {
-      Materialize.toast('Please enter your phone number before submitting.', errorTimeout);
-      return;
-    }
-    if (!message) {
-      Materialize.toast('Please enter a message before submitting.', errorTimeout);
-      return;
-    }
-    let sendEmailURL;
-    if (document.location.hostname == "localhost") {
-      sendEmailURL = 'http://localhost/send-email';
-    } else {
-      sendEmailURL = 'http://adappt.tech/send-email';
-    }
-
-    //else, user entered all information, send an email.
-    axios.post('/send-email', {
-        name: name,
-        email: email,
-        phone: phone,
-        message: message,
-        subscription: subscription
-      })
-      .then(function (response) {
-        console.log(response);
-        Materialize.toast(
-          `Message sent successfully! Thanks for reaching out, I'll get back to you at the email address you provided soon.`,
-          successTimeout);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-  }
-
   $(document).ready(function () {
-    //Materialize.AutoInit();
-    axios.get('/browser-refresh-url')
-      .then(function (response) {
-        // console.log('reponse: ', response.data.toString().search('404'));
-        if (response.data.toString().search('404') == -1) {
-          let broswerRefreshURL = document.createElement('script');
-          broswerRefreshURL.setAttribute('type', 'text/javascript');
-          broswerRefreshURL.setAttribute('src', response.data);
-          document.head.appendChild(broswerRefreshURL);
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
     // Init Sidenav
     $('.button-collapse').sideNav();
 
